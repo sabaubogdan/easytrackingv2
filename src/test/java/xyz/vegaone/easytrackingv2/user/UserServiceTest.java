@@ -76,12 +76,14 @@ public class UserServiceTest {
     }
 
     @Test(expected = UserNotFoundException.class)
-    public void userNotFoundExceptionTest(){
+    public void userNotFoundExceptionTest() throws UserNotFoundException {
         //given
         User savedUser = buildAndSaveUser();
         userService.deleteUser(savedUser.getId());
         //when
-        savedUser.getId();
+        long nonexistentUserId = 99;
+        userService.getUser(nonexistentUserId);
+
 
     }
 
