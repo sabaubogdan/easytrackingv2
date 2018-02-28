@@ -81,12 +81,11 @@ public class UserServiceTest {
         User savedUser = buildAndSaveUser();
         userService.deleteUser(savedUser.getId());
         //when
-        long nonexistentUserId = 99;
+        long nonexistentUserId = -1;
         userService.getUser(nonexistentUserId);
 
 
     }
-
 
     private User buildAndSaveUser() {
         User user = new User();

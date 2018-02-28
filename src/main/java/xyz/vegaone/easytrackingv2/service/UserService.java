@@ -39,7 +39,7 @@ public class UserService {
         UserEntity userEntity = userRepo.findOne(id);
 
         if (userEntity == null) {
-            throw new UserNotFoundException("Entity with id " + id + " not found.");
+            throw new UserNotFoundException("User with id " + id + " not found.");
         }
 
         return userMapper.domainToDto(userEntity);

@@ -1,28 +1,4 @@
-<!--# databaseChangeLog:-->
-<!--#   - changeSet:-->
-<!--#       id: 1-->
-<!--#       author: Bogdan-->
-<!--#       changes:-->
-<!--#         - createTable:-->
-<!--#             tableName: user-->
-<!--#             columns:-->
-<!--#               - column:-->
-<!--#                   name: id-->
-<!--#                   type: bigint-->
-<!--#                   autoIncrement: true-->
-<!--#                   constraints:-->
-<!--#                     primaryKey: true-->
-<!--#                     nullable: false-->
-<!--#               - column:-->
-<!--#                   name: name-->
-<!--#                   type: varchar(75)-->
-<!--#                   constraints:-->
-<!--#                     nullable: false-->
-<!--#               - column:-->
-<!--#                   name: email-->
-<!--#                   type: varchar(150)-->
-<!--#                   constraints:-->
-<!--#                     nullable: false-->
+
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
