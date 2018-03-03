@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import xyz.vegaone.easytrackingv2.dto.User;
-import xyz.vegaone.easytrackingv2.exception.UserNotFoundException;
+import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
 import xyz.vegaone.easytrackingv2.service.UserService;
 
 @SpringBootTest
@@ -28,7 +28,7 @@ public class UserServiceTest {
 
         //then
         User findUser = userService.getUser(savedUser.getId());
-        Assert.assertNotNull("There should have been one user saved in the database", savedUser);
+        Assert.assertNotNull("There should have been one user saved in the database", findUser);
         Assert.assertEquals("The user name should have matched", NAME, findUser.getName());
         Assert.assertEquals("The user email should have matched", EMAIL, findUser.getEmail());
 
@@ -75,8 +75,8 @@ public class UserServiceTest {
 
     }
 
-    @Test(expected = UserNotFoundException.class)
-    public void userNotFoundExceptionTest() throws UserNotFoundException {
+    @Test(expected = EntityNotFoundException.class)
+    public void userNotFoundExceptionTest() throws EntityNotFoundException {
         //given
         User savedUser = buildAndSaveUser();
         userService.deleteUser(savedUser.getId());

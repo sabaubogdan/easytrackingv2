@@ -20,6 +20,7 @@ public class EasyTrackConfig {
         hikariDataSource.setPassword("");
 
 
+
         return hikariDataSource;
     }
 

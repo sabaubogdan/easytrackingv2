@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import xyz.vegaone.easytrackingv2.dto.User;
-import xyz.vegaone.easytrackingv2.exception.UserNotFoundException;
+import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
 import xyz.vegaone.easytrackingv2.service.UserService;
 
 @RestController
@@ -43,10 +43,11 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    @ExceptionHandler (UserNotFoundException.class)
+    @ExceptionHandler (EntityNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public String entityNotFoundError(UserNotFoundException userNotFoundException) {
+    public String entityNotFoundError(EntityNotFoundException entityNotFoundException) {
 
-        return userNotFoundException.getErrMsg();
+        return entityNotFoundException.getErrMsg();
     }
+
 }

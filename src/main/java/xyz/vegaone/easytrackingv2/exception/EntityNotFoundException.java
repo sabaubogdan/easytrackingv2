@@ -1,16 +1,16 @@
 package xyz.vegaone.easytrackingv2.exception;
 
-public class UserNotFoundException extends RuntimeException {
+public class EntityNotFoundException extends RuntimeException {
 
     private String errCode;
 
     private String errMsg;
 
-    public UserNotFoundException(String errMsg) {
+    public EntityNotFoundException(String errMsg) {
         this.errMsg = errMsg;
     }
 
-    public UserNotFoundException(String errCode, String errMsg) {
+    public EntityNotFoundException(String errCode, String errMsg) {
         this.errCode = errCode;
         this.errMsg = errMsg;
     }

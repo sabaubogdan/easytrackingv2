@@ -1,6 +1,7 @@
 package xyz.vegaone.easytrackingv2.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -15,6 +16,12 @@ public class UserEntity {
 
     @Column(name = "email")
     private String email;
+
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_project",
+                joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+                inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"))
+    private List<ProjectEntity> projectEntityList;
 
     public Long getId() {
         return id;
@@ -38,5 +45,13 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<ProjectEntity> getProjectEntityList() {
+        return projectEntityList;
+    }
+
+    public void setProjectEntityList(List<ProjectEntity> projectEntityList) {
+        this.projectEntityList = projectEntityList;
     }
 }
