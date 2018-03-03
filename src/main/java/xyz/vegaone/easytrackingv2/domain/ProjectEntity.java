@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Table
-@Entity (name = "project")
+@Entity(name = "project")
 public class ProjectEntity {
 
     @Id
@@ -14,7 +14,7 @@ public class ProjectEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany (mappedBy = "projectEntityList", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "projectEntityList", fetch = FetchType.EAGER)
     private List<UserEntity> userList;
 
     public Long getId() {

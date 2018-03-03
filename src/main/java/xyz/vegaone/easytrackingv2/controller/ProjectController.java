@@ -23,7 +23,7 @@ public class ProjectController {
     }
 
     @GetMapping(value = "/{id}")
-    public Project getProject(@PathVariable (value = "id") Long id){
+    public Project getProject(@PathVariable(value = "id") Long id) {
         Project project = projectService.getProject(id);
 
         return project;
@@ -31,7 +31,7 @@ public class ProjectController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Project createProject(@RequestBody Project project){
+    public Project createProject(@RequestBody Project project) {
         Project createdProject = projectService.createProject(project);
 
         return createdProject;
@@ -39,7 +39,7 @@ public class ProjectController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Project updateProject(@RequestBody Project project){
+    public Project updateProject(@RequestBody Project project) {
         Project updatedProject = projectService.updateProject(project);
 
         return updatedProject;
@@ -47,24 +47,24 @@ public class ProjectController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProject(@PathVariable(value = "id") Long id){
+    public void deleteProject(@PathVariable(value = "id") Long id) {
         projectService.deleteProject(id);
     }
 
     @GetMapping(value = "/all")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Project> findAllProjects(){
+    public List<Project> findAllProjects() {
         return projectService.findAllProjects();
     }
 
     @GetMapping(value = "/user/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Project> findAllProjectsByUserId(@PathVariable(value = "id") Long userId){
+    public List<Project> findAllProjectsByUserId(@PathVariable(value = "id") Long userId) {
         return projectService.findProjectByUserId(userId);
     }
 
 
-    @ExceptionHandler (EntityNotFoundException.class)
+    @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public String projectNotFoundError(EntityNotFoundException entityNotFoundException) {
 

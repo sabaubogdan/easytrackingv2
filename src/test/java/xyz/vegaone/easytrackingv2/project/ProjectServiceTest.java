@@ -32,7 +32,7 @@ public class ProjectServiceTest {
     private UserService userService;
 
     @Test
-    public void createProjectTest(){
+    public void createProjectTest() {
         //given
 
         //when
@@ -48,7 +48,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-    public void getProjectTest(){
+    public void getProjectTest() {
         //given
         Project savedProject = projectService.createProject(buildAndSaveProject());
 
@@ -62,7 +62,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-    public void deleteProjectTest(){
+    public void deleteProjectTest() {
         //given
         Project savedProject = projectService.createProject(buildAndSaveProject());
 
@@ -75,7 +75,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-    public void updateProjectServiceTest(){
+    public void updateProjectServiceTest() {
         //given
         Project project = buildAndSaveProject();
         Project savedProject = projectService.createProject(project);
@@ -99,7 +99,7 @@ public class ProjectServiceTest {
 
     }
 
-    private Project buildAndSaveProject(){
+    private Project buildAndSaveProject() {
         Project project = new Project();
         project.setName(PROJECT_NAME);
 
