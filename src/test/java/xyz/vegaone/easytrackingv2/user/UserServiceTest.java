@@ -75,6 +75,19 @@ public class UserServiceTest {
 
     }
 
+    @Test
+    public void findAllUsersTest() {
+        //given
+        User savedUser1 = buildAndSaveUser();
+        User savedUser2 = buildAndSaveUser();
+
+        //when
+
+        //then
+        Assert.assertEquals("There should have been found two project", 2, userService.findAllUsers().size());
+
+    }
+
     @Test(expected = EntityNotFoundException.class)
     public void userNotFoundExceptionTest() throws EntityNotFoundException {
         //given

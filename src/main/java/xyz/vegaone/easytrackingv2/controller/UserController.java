@@ -8,6 +8,8 @@ import xyz.vegaone.easytrackingv2.dto.User;
 import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
 import xyz.vegaone.easytrackingv2.service.UserService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/api/user")
 @Slf4j
@@ -43,7 +45,13 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    @ExceptionHandler (EntityNotFoundException.class)
+    @GetMapping(value = "/all")
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<User> findAllUsers() {
+        return userService.findAllUsers();
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public String entityNotFoundError(EntityNotFoundException entityNotFoundException) {
 

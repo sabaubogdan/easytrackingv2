@@ -60,7 +60,7 @@ public class ProjectController {
     @GetMapping(value = "/user/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Project> findAllProjectsByUserId(@PathVariable(value = "id") Long userId) {
-        return projectService.findProjectByUserId(userId);
+        return projectService.findAllProjectsByUserId(userId);
     }
 
 

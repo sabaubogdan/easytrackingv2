@@ -79,7 +79,7 @@ public class ProjectService {
         return projectMapper.domainToDtoList(projectEntityList);
     }
 
-    public List<Project> findProjectByUserId(Long userId) {
+    public List<Project> findAllProjectsByUserId(Long userId) {
         UserEntity user = new UserEntity();
         user.setId(userId);
 

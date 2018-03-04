@@ -13,7 +13,10 @@ import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
 import xyz.vegaone.easytrackingv2.service.ProjectService;
 import xyz.vegaone.easytrackingv2.service.UserService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Arrays;
+import java.util.List;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -31,12 +34,15 @@ public class ProjectServiceTest {
     @Autowired
     private UserService userService;
 
+    @PersistenceContext
+    private EntityManager em;
+
     @Test
     public void createProjectTest() {
         //given
 
         //when
-        Project savedProject = buildAndSaveProject();
+        Project savedProject = buildProject();
         savedProject.setUserList(Arrays.asList(buildAndSaveUser()));
 
         Project createdProject = projectService.createProject(savedProject);
@@ -50,7 +56,7 @@ public class ProjectServiceTest {
     @Test
     public void getProjectTest() {
         //given
-        Project savedProject = projectService.createProject(buildAndSaveProject());
+        Project savedProject = projectService.createProject(buildProject());
 
         //when
         Project findProject = projectService.getProject(savedProject.getId());
@@ -64,7 +70,7 @@ public class ProjectServiceTest {
     @Test
     public void deleteProjectTest() {
         //given
-        Project savedProject = projectService.createProject(buildAndSaveProject());
+        Project savedProject = projectService.createProject(buildProject());
 
         //when
         projectService.deleteProject(savedProject.getId());
@@ -77,7 +83,7 @@ public class ProjectServiceTest {
     @Test
     public void updateProjectServiceTest() {
         //given
-        Project project = buildAndSaveProject();
+        Project project = buildProject();
         Project savedProject = projectService.createProject(project);
 
         //when
@@ -89,17 +95,45 @@ public class ProjectServiceTest {
 
     }
 
+    @Test
+    public void findAllProjectsTest() {
+        //given
+        Project project1 = buildProject();
+        Project project2 = buildProject();
+
+        //when
+        Project savedProject1 = projectService.createProject(project1);
+        Project savedProject2 = projectService.createProject(project2);
+
+        //then
+        Assert.assertEquals("There should have been found two project", 2, projectService.findAllProjects().size());
+
+    }
+
+    @Test
+    public void findAllProjectsByUserIdTest() {
+        //given
+        Project savedProjectOne = buildAndSaveProjectWithUser("ProjectOne");
+        Project savedProjectTwo = buildAndSaveProjectWithUser("ProjectTwo");
+
+        //when
+        List<Project> foundProjects = projectService.findAllProjectsByUserId(savedProjectOne.getUserList().get(0).getId());
+
+        //then
+        Assert.assertEquals("There should have been two projects associated with one user", 2, foundProjects.size());
+    }
+
     @Test(expected = EntityNotFoundException.class)
     public void projectNotFoundExceptionTest() throws EntityNotFoundException {
         //given
-        Project savedProject = buildAndSaveProject();
+        Project savedProject = buildProject();
         //when
         long nonexistentProjectId = -1;
         projectService.getProject(nonexistentProjectId);
 
     }
 
-    private Project buildAndSaveProject() {
+    private Project buildProject() {
         Project project = new Project();
         project.setName(PROJECT_NAME);
 
@@ -112,5 +146,14 @@ public class ProjectServiceTest {
         user.setName(USER_NAME);
 
         return userService.createUser(user);
+    }
+
+    private Project buildAndSaveProjectWithUser(String projectName){
+        Project project = new Project();
+        project.setName(projectName);
+
+        project.setUserList(Arrays.asList(buildAndSaveUser()));
+
+        return projectService.updateProject(project);
     }
 }
