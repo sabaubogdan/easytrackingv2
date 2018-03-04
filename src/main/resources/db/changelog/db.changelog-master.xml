@@ -23,5 +23,26 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="2" author="Bogdan">
+        <createTable tableName="project">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(75)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="Bogdan">
+        <createTable tableName="user_project">
+            <column name="user_id" type="int" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="project_id" type="int" >
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 
 </databaseChangeLog>
