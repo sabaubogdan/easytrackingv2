@@ -17,10 +17,7 @@ public class UserEntity {
     @Column(name = "email")
     private String email;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_project",
-                joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-                inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"))
+    @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER)
     private List<ProjectEntity> projectEntityList;
 
     public Long getId() {
