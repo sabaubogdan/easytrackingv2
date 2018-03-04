@@ -16,6 +16,7 @@ import xyz.vegaone.easytrackingv2.service.UserService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @SpringBootTest
@@ -113,11 +114,18 @@ public class ProjectServiceTest {
     @Test
     public void findAllProjectsByUserIdTest() {
         //given
-        Project savedProjectOne = buildAndSaveProjectWithUser("ProjectOne");
-        Project savedProjectTwo = buildAndSaveProjectWithUser("ProjectTwo");
+        User user = buildAndSaveUser();
+
+        Project projectOne = buildProject("ProjectOne");
+        projectOne.setUserList(Collections.singletonList(user));
+        projectService.createProject(projectOne);
+
+        Project projectTwo = buildProject("ProjectTwo");
+        projectTwo.setUserList(Collections.singletonList(user));
+        projectService.createProject(projectTwo);
 
         //when
-        List<Project> foundProjects = projectService.findAllProjectsByUserId(savedProjectOne.getUserList().get(0).getId());
+        List<Project> foundProjects = projectService.findAllProjectsByUserId(user.getId());
 
         //then
         Assert.assertEquals("There should have been two projects associated with one user", 2, foundProjects.size());
@@ -148,12 +156,10 @@ public class ProjectServiceTest {
         return userService.createUser(user);
     }
 
-    private Project buildAndSaveProjectWithUser(String projectName){
+    private Project buildProject(String projectName){
         Project project = new Project();
         project.setName(projectName);
 
-        project.setUserList(Arrays.asList(buildAndSaveUser()));
-
-        return projectService.updateProject(project);
+        return project;
     }
 }
