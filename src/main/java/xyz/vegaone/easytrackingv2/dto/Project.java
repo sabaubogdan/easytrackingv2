@@ -10,6 +10,8 @@ public class Project {
 
     private List<User> userList;
 
+    private List<Project> projectList;
+
     public Long getId() {
         return id;
     }
