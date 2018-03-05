@@ -46,6 +46,6 @@ public class SprintController {
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSprint(@PathVariable(value = "id") Long id) {
-        sprintService.deletSprint(id);
+        sprintService.deleteSprint(id);
     }
 }

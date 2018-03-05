@@ -17,26 +17,17 @@ public class SprintService {
 
     private SprintMapper sprintMapper;
 
-    private ProjectService projectService;
-
-    private ProjectMapper projectMapper;
-
-    private ProjectRepo projectRepo;
-
     @Autowired
-    public SprintService(SprintRepo sprintRepo, SprintMapper sprintMapper, ProjectService projectService, ProjectMapper projectMapper, ProjectRepo projectRepo) {
+    public SprintService(SprintRepo sprintRepo, SprintMapper sprintMapper) {
         this.sprintRepo = sprintRepo;
         this.sprintMapper = sprintMapper;
-        this.projectService = projectService;
-        this.projectMapper = projectMapper;
-        this.projectRepo = projectRepo;
     }
 
     public Sprint createSprint(Sprint sprint) {
         SprintEntity sprintEntity = sprintMapper.dtoToDomain(sprint);
-        SprintEntity savedSprintEntitu = sprintRepo.save(sprintEntity);
+        SprintEntity savedSprintEntity = sprintRepo.save(sprintEntity);
 
-        return sprintMapper.domainToDto(savedSprintEntitu);
+        return sprintMapper.domainToDto(savedSprintEntity);
     }
 
     public Sprint getSprint(Long id) {
@@ -49,7 +40,7 @@ public class SprintService {
         return sprintMapper.domainToDto(sprintEntity);
     }
 
-    public void deletSprint(Long id) {
+    public void deleteSprint(Long id) {
         sprintRepo.delete(id);
     }
 

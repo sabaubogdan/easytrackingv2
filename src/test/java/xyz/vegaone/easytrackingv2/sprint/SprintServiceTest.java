@@ -30,13 +30,13 @@ public class SprintServiceTest {
         Sprint savedSprint = buildAndSaveSprint();
 
         //when
-        Sprint foundSprint = sprintService.getSprint(savedSprint.getId());
+        Sprint findSprint = sprintService.getSprint(savedSprint.getId());
 
         //then
-        Assert.assertNotNull("There should have been one sprint saved in the database", foundSprint);
-        Assert.assertEquals("The sprint start date should have matched", SPRINT_START_DATE, foundSprint.getStartDate());
-        Assert.assertEquals("The sprint end date should have matched", SPRINT_END_DATE, foundSprint.getEndDate());
-        Assert.assertEquals("The sprint sprint number should have matched", SPRINT_NUMBER, foundSprint.getSprintNumber());
+        Assert.assertNotNull("There should have been one sprint saved in the database", findSprint);
+        Assert.assertEquals("The sprint start date should have matched", SPRINT_START_DATE, findSprint.getStartDate());
+        Assert.assertEquals("The sprint end date should have matched", SPRINT_END_DATE, findSprint.getEndDate());
+        Assert.assertEquals("The sprint sprint number should have matched", SPRINT_NUMBER, findSprint.getSprintNumber());
 
     }
 
@@ -46,13 +46,13 @@ public class SprintServiceTest {
         Sprint savedSprint = buildAndSaveSprint();
 
         //when
-        Sprint foundSprint = sprintService.getSprint(savedSprint.getId());
+        Sprint findSprint = sprintService.getSprint(savedSprint.getId());
 
         //then
-        Assert.assertNotNull("There should have been one sprint saved in the database", foundSprint);
-        Assert.assertEquals("The sprint start date should have matched", savedSprint.getStartDate(), foundSprint.getStartDate());
-        Assert.assertEquals("The sprint start date should have matched", savedSprint.getEndDate(), foundSprint.getEndDate());
-        Assert.assertEquals("The sprint start date should have matched", savedSprint.getSprintNumber(), foundSprint.getSprintNumber());
+        Assert.assertNotNull("There should have been one sprint saved in the database", findSprint);
+        Assert.assertEquals("The sprint start date should have matched", savedSprint.getStartDate(), findSprint.getStartDate());
+        Assert.assertEquals("The sprint start date should have matched", savedSprint.getEndDate(), findSprint.getEndDate());
+        Assert.assertEquals("The sprint start date should have matched", savedSprint.getSprintNumber(), findSprint.getSprintNumber());
 
     }
 
@@ -62,7 +62,7 @@ public class SprintServiceTest {
         Sprint savedSprint = buildAndSaveSprint();
 
         //when
-        sprintService.deletSprint(savedSprint.getId());
+        sprintService.deleteSprint(savedSprint.getId());
 
         //then
         Assert.assertNull("The sprint should have been deleted", sprintService.getSprint(savedSprint.getId()));
@@ -70,7 +70,7 @@ public class SprintServiceTest {
     }
 
     @Test
-    public void updateSrintTest() {
+    public void updateSprintTest() {
         //given
         Sprint savedSprint = buildAndSaveSprint();
 
@@ -97,10 +97,10 @@ public class SprintServiceTest {
     public void sprintNotFoundExceptionTest() throws EntityNotFoundException {
         //given
         Sprint savedSprint = buildAndSaveSprint();
-        sprintService.deletSprint(savedSprint.getId());
+        sprintService.deleteSprint(savedSprint.getId());
         //when
-        long nonexistentSprintId = -1;
-        sprintService.getSprint(nonexistentSprintId);
+        long nonExistentSprintId = -1;
+        sprintService.getSprint(nonExistentSprintId);
 
 
     }
