@@ -23,6 +23,9 @@ public class ProjectEntity {
     @OneToMany(mappedBy = "project")
     private List<SprintEntity> sprintList;
 
+    @OneToMany(mappedBy = "project")
+    private List<UserStoryEntity> userStoryList;
+
     public Long getId() {
         return id;
     }
@@ -45,5 +48,21 @@ public class ProjectEntity {
 
     public void setUserList(List<UserEntity> userList) {
         this.userList = userList;
+    }
+
+    public List<SprintEntity> getSprintList() {
+        return sprintList;
+    }
+
+    public void setSprintList(List<SprintEntity> sprintList) {
+        this.sprintList = sprintList;
+    }
+
+    public List<UserStoryEntity> getUserStoryList() {
+        return userStoryList;
+    }
+
+    public void setUserStoryList(List<UserStoryEntity> userStoryList) {
+        this.userStoryList = userStoryList;
     }
 }
