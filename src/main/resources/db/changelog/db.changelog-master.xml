@@ -43,6 +43,27 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="4" author="Bogdan">
+        <createTable tableName="sprint">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="start_date" type="date" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="date" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="sprint_number" type="int" >
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="Bogdan" >
+        <addColumn tableName="sprint">
+            <column name="project_id" type="int"/>
+        </addColumn>
+    </changeSet>
 
 
 </databaseChangeLog>

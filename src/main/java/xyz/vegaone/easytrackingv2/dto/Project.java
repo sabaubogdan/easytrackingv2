@@ -10,6 +10,16 @@ public class Project {
 
     private List<User> userList;
 
+    private List<Sprint> sprintList;
+
+    public List<Sprint> getSprintList() {
+        return sprintList;
+    }
+
+    public void setSprintList(List<Sprint> sprintList) {
+        this.sprintList = sprintList;
+    }
+
     public Long getId() {
         return id;
     }

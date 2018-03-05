@@ -20,6 +20,9 @@ public class ProjectEntity {
             inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"))
     private List<UserEntity> userList;
 
+    @OneToMany(mappedBy = "project")
+    private List<SprintEntity> sprintList;
+
     public Long getId() {
         return id;
     }
