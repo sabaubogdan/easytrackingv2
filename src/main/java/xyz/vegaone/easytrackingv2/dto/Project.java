@@ -12,6 +12,8 @@ public class Project {
 
     private List<Sprint> sprintList;
 
+    private List<UserStory> userStoryList;
+
     public List<Sprint> getSprintList() {
         return sprintList;
     }
@@ -42,5 +44,13 @@ public class Project {
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
+    }
+
+    public List<UserStory> getUserStoryList() {
+        return userStoryList;
+    }
+
+    public void setUserStoryList(List<UserStory> userStoryList) {
+        this.userStoryList = userStoryList;
     }
 }
