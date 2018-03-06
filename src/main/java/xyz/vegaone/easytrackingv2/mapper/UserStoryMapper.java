@@ -26,19 +26,23 @@ public interface UserStoryMapper {
 
     @AfterMapping
     default void addProjectToDto(UserStoryEntity userStoryEntity, @MappingTarget UserStory userStory) {
-        Project project = new Project();
-        project.setId(userStoryEntity.getProject().getId());
-        project.setName(userStoryEntity.getProject().getName());
+        if (userStoryEntity.getProject() != null) {
+            Project project = new Project();
+            project.setId(userStoryEntity.getProject().getId());
+            project.setName(userStoryEntity.getProject().getName());
 
-        userStory.setProject(project);
+            userStory.setProject(project);
+        }
     }
 
     @AfterMapping
     default void addProjectToDomain(UserStory userStory, @MappingTarget UserStoryEntity userStoryEntity) {
-        ProjectEntity projectEntity = new ProjectEntity();
-        projectEntity.setId(userStory.getProject().getId());
-        projectEntity.setName(userStory.getProject().getName());
+        if (userStory.getProject() != null) {
+            ProjectEntity projectEntity = new ProjectEntity();
+            projectEntity.setId(userStory.getProject().getId());
+            projectEntity.setName(userStory.getProject().getName());
 
-        userStoryEntity.setProject(projectEntity);
+            userStoryEntity.setProject(projectEntity);
+        }
     }
 }

@@ -60,7 +60,7 @@ public class UserStoryServiceTest {
 
     }
 
-    @Test
+    @Test(expected = EntityNotFoundException.class)
     public void deleteUserStoryTest() {
         //given
         UserStory savedUserStory = buildAndSaveUserStory();
