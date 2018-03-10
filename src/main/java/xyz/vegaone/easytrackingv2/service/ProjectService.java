@@ -73,10 +73,18 @@ public class ProjectService {
         return savedProject;
     }
 
-    public List<Project> findAllProjects() {
-        List<ProjectEntity> projectEntityList = projectRepo.findAll();
+    public List<Project> findAllProjects(Boolean brief) {
 
-        return projectMapper.domainToDtoList(projectEntityList);
+        if (brief) {
+
+            List<ProjectEntity> projectEntityList = projectRepo.findAll();
+
+            return projectMapper.domainToDtoList(projectEntityList);
+
+        } else {
+            List<ProjectEntity> projectEntityList = projectRepo.findAllProjectsAndDisplayProjectIdAndName();
+            return projectMapper.domainToDtoList(projectEntityList);
+        }
     }
 
     public List<Project> findAllProjectsByUserId(Long userId) {

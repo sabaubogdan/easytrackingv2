@@ -107,7 +107,7 @@ public class ProjectServiceTest {
         Project savedProject2 = projectService.createProject(project2);
 
         //then
-        Assert.assertEquals("There should have been found two project", 2, projectService.findAllProjects().size());
+        Assert.assertEquals("There should have been found two project", 2, projectService.findAllProjects(true).size());
 
     }
 

@@ -22,7 +22,7 @@ public interface UserStoryMapper {
 
     List<UserStory> domainToDtoList(List<UserStoryEntity> userStoryEntityList);
 
-    List<UserStoryEntity> dtoToDomain(List<UserStory> userStoryList);
+    List<UserStoryEntity> dtoToDomainList(List<UserStory> userStoryList);
 
     @AfterMapping
     default void addProjectToDto(UserStoryEntity userStoryEntity, @MappingTarget UserStory userStory) {
