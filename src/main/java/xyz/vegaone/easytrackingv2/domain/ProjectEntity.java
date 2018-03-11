@@ -26,6 +26,14 @@ public class ProjectEntity {
     @OneToMany(mappedBy = "project")
     private List<UserStoryEntity> userStoryList;
 
+    public ProjectEntity() {
+    }
+
+    public ProjectEntity(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
