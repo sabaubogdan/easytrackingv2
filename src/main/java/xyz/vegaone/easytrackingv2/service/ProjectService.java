@@ -77,12 +77,13 @@ public class ProjectService {
 
         if (brief) {
 
-            List<ProjectEntity> projectEntityList = projectRepo.findAll();
+            List<ProjectEntity> projectEntityList = projectRepo.findAllProjectsBrief();
 
             return projectMapper.domainToDtoList(projectEntityList);
 
         } else {
-            List<ProjectEntity> projectEntityList = projectRepo.findAllProjectsAndDisplayProjectIdAndName();
+            List<ProjectEntity> projectEntityList = projectRepo.findAll();
+
             return projectMapper.domainToDtoList(projectEntityList);
         }
     }

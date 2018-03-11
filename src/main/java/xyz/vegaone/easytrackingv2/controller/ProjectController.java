@@ -51,12 +51,6 @@ public class ProjectController {
         projectService.deleteProject(id);
     }
 
-//    @GetMapping(value = "/all")
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public List<Project> findAllProjects() {
-//        return projectService.findAllProjects();
-//    }
-
     @GetMapping(value = "/all")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Project> findAllProjects(@RequestParam("brief") boolean brief) {
