@@ -29,7 +29,7 @@ public interface UserStoryMapper {
         if (userStoryEntity.getProject() != null) {
             Project project = new Project();
             project.setId(userStoryEntity.getProject().getId());
-            project.setName(userStoryEntity.getProject().getName());
+            project.setTitle(userStoryEntity.getProject().getTitle());
 
             userStory.setProject(project);
         }
@@ -40,7 +40,7 @@ public interface UserStoryMapper {
         if (userStory.getProject() != null) {
             ProjectEntity projectEntity = new ProjectEntity();
             projectEntity.setId(userStory.getProject().getId());
-            projectEntity.setName(userStory.getProject().getName());
+            projectEntity.setTitle(userStory.getProject().getTitle());
 
             userStoryEntity.setProject(projectEntity);
         }

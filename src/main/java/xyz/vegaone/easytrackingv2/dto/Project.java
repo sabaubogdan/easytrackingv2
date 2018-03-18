@@ -6,7 +6,9 @@ public class Project {
 
     private Long id;
 
-    private String name;
+    private String title;
+
+    private String description;
 
     private List<User> userList;
 
@@ -30,12 +32,12 @@ public class Project {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public List<User> getUserList() {
@@ -52,5 +54,13 @@ public class Project {
 
     public void setUserStoryList(List<UserStory> userStoryList) {
         this.userStoryList = userStoryList;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

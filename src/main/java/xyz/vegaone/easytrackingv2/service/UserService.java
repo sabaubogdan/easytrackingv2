@@ -11,6 +11,7 @@ import xyz.vegaone.easytrackingv2.repo.UserRepo;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -39,17 +40,20 @@ public class UserService {
 
     public User getUser(Long id) {
 
-        UserEntity userEntity = userRepo.findOne(id);
+        Optional<UserEntity> userOptional = userRepo.findById(id);
 
-        if (userEntity == null) {
+        if (userOptional.isPresent()) {
+            UserEntity userEntity = userOptional.get();
+            User user = userMapper.domainToDto(userEntity);
+
+            return user;
+        } else {
             throw new EntityNotFoundException("User with id " + id + " not found.");
         }
-
-        return userMapper.domainToDto(userEntity);
     }
 
     public void deleteUser(Long id) {
-        userRepo.delete(id);
+        userRepo.deleteById(id);
     }
 
     public User updateUser(User user) {
@@ -60,7 +64,7 @@ public class UserService {
         return userMapper.domainToDto(savedUserEntity);
     }
 
-    public List<User> findAllUsers(){
+    public List<User> findAllUsers() {
         List<UserEntity> userEntityList = Collections.emptyList();
         userEntityList = userRepo.findAll();
 

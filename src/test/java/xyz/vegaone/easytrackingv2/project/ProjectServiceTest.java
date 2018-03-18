@@ -25,6 +25,7 @@ public class ProjectServiceTest {
 
     private static final String PROJECT_NAME = "Project one";
     private static final String PROJECT_NEW_NAME = "Project two";
+    private static final String PROJECT_DESCRIPTION = "Project description";
 
     private static final String USER_NAME = "Bogdan One";
     private static final String USER_EMAIL = "Bogdan@ddbsolutions.com";
@@ -50,7 +51,8 @@ public class ProjectServiceTest {
 
         //then
         Assert.assertNotNull("There should have been one project saved in the database", createdProject);
-        Assert.assertEquals("The project name should have matched", PROJECT_NAME, createdProject.getName());
+        Assert.assertEquals("The project name should have matched", PROJECT_NAME, createdProject.getTitle());
+        Assert.assertEquals("The project description should have matched", PROJECT_DESCRIPTION, createdProject.getDescription());
 
     }
 
@@ -64,11 +66,11 @@ public class ProjectServiceTest {
 
         //then
         Assert.assertNotNull("There should have been one project saved in the database", savedProject);
-        Assert.assertEquals("The project name should have matched", PROJECT_NAME, findProject.getName());
+        Assert.assertEquals("The project name should have matched", PROJECT_NAME, findProject.getTitle());
 
     }
 
-    @Test
+    @Test(expected = EntityNotFoundException.class)
     public void deleteProjectTest() {
         //given
         Project savedProject = projectService.createProject(buildProject());
@@ -88,11 +90,11 @@ public class ProjectServiceTest {
         Project savedProject = projectService.createProject(project);
 
         //when
-        savedProject.setName(PROJECT_NEW_NAME);
+        savedProject.setTitle(PROJECT_NEW_NAME);
         Project updatedProject = projectService.updateProject(savedProject);
 
         //then
-        Assert.assertEquals("The project new name should have matched", PROJECT_NEW_NAME, updatedProject.getName());
+        Assert.assertEquals("The project new name should have matched", PROJECT_NEW_NAME, updatedProject.getTitle());
 
     }
 
@@ -143,7 +145,8 @@ public class ProjectServiceTest {
 
     private Project buildProject() {
         Project project = new Project();
-        project.setName(PROJECT_NAME);
+        project.setTitle(PROJECT_NAME);
+        project.setDescription(PROJECT_DESCRIPTION);
 
         return project;
     }
@@ -156,9 +159,9 @@ public class ProjectServiceTest {
         return userService.createUser(user);
     }
 
-    private Project buildProject(String projectName){
+    private Project buildProject(String projectName) {
         Project project = new Project();
-        project.setName(projectName);
+        project.setTitle(projectName);
 
         return project;
     }

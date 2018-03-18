@@ -9,6 +9,8 @@ import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
 import xyz.vegaone.easytrackingv2.mapper.UserStoryMapper;
 import xyz.vegaone.easytrackingv2.repo.UserStoryRepo;
 
+import java.util.Optional;
+
 @Service
 @Slf4j
 public class UserStoryService {
@@ -31,17 +33,19 @@ public class UserStoryService {
     }
 
     public UserStory getUserStory(Long id) {
-        UserStoryEntity userStoryEntity = userStoryRepo.findOne(id);
 
-        if (userStoryEntity == null) {
-            throw new EntityNotFoundException("User story with id " + id + " not found");
-        }
+        Optional<UserStoryEntity> userStoryOptional = userStoryRepo.findById(id);
 
-        return userStoryMapper.domainToDto(userStoryEntity);
+            UserStoryEntity userStoryEntity = userStoryOptional.orElseThrow(()->
+                    new EntityNotFoundException("User story with id " + id + " not found"));
+            UserStory userStory = userStoryMapper.domainToDto(userStoryEntity);
+
+            return userStory;
+
     }
 
     public void deleteUserStory(Long id) {
-        userStoryRepo.delete(id);
+        userStoryRepo.deleteById(id);
     }
 
     public UserStory updateUserStory(UserStory userStory) {

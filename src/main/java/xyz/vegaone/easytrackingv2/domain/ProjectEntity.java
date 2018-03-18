@@ -11,8 +11,11 @@ public class ProjectEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "description")
+    private String description;
 
     @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_project",
@@ -31,7 +34,7 @@ public class ProjectEntity {
 
     public ProjectEntity(Long id, String name) {
         this.id = id;
-        this.name = name;
+        this.title = name;
     }
 
     public Long getId() {
@@ -42,12 +45,12 @@ public class ProjectEntity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public List<UserEntity> getUserList() {
@@ -72,5 +75,13 @@ public class ProjectEntity {
 
     public void setUserStoryList(List<UserStoryEntity> userStoryList) {
         this.userStoryList = userStoryList;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
