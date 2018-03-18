@@ -56,7 +56,7 @@ public class SprintServiceTest {
 
     }
 
-    @Test
+    @Test(expected = EntityNotFoundException.class)
     public void deleteSprintTest() {
         //given
         Sprint savedSprint = buildAndSaveSprint();

@@ -11,6 +11,6 @@ public interface ProjectRepo extends JpaRepository<ProjectEntity, Long> {
 
     List<ProjectEntity> findAllByUserList(List<UserEntity> userList);
 
-    @Query("SELECT new xyz.vegaone.easytrackingv2.domain.ProjectEntity (id, name)  FROM  project")
+    @Query("SELECT new xyz.vegaone.easytrackingv2.domain.ProjectEntity (id, title)  FROM  project")
     List<ProjectEntity> findAllProjectsBrief();
 }

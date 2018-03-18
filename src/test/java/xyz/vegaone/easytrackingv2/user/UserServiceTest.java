@@ -48,7 +48,7 @@ public class UserServiceTest {
         Assert.assertEquals("The user email should have matched", savedUser.getEmail(), findUser.getEmail());
     }
 
-    @Test
+    @Test(expected = EntityNotFoundException.class)
     public void deleteUserTest() {
         //given
         User savedUser = buildAndSaveUser();
@@ -57,7 +57,7 @@ public class UserServiceTest {
         userService.deleteUser(savedUser.getId());
 
         //then
-        Assert.assertNull("The user should have been deletaed", userService.getUser(savedUser.getId()));
+        Assert.assertNull("The user should have been deleted", userService.getUser(savedUser.getId()));
     }
 
     @Test
