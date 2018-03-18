@@ -82,8 +82,8 @@ public class ProjectService {
 
         Optional<ProjectEntity> projectOptional = projectRepo.findById(id);
 
-        if (projectOptional.isPresent()) {
-            ProjectEntity projectEntity = projectOptional.get();
+            ProjectEntity projectEntity = projectOptional.orElseThrow(()->
+                    new javax.persistence.EntityNotFoundException("Project with id " + id + " not found"));
             Project project = projectMapper.domainToDto(projectEntity);
 
             Optional<UserStoryEntity> userStoryOptional = userStoryRepo.findById(projectEntity.getId());
@@ -105,11 +105,9 @@ public class ProjectService {
             }
 
             return project;
-        } else {
-            throw new EntityNotFoundException("Project with id " + id + " not found");
+
         }
 
-    }
 
     public void deleteProject(Long id) {
         projectRepo.deleteById(id);

@@ -36,14 +36,12 @@ public class UserStoryService {
 
         Optional<UserStoryEntity> userStoryOptional = userStoryRepo.findById(id);
 
-        if (userStoryOptional.isPresent()) {
-            UserStoryEntity userStoryEntity = userStoryOptional.get();
+            UserStoryEntity userStoryEntity = userStoryOptional.orElseThrow(()->
+                    new EntityNotFoundException("User story with id " + id + " not found"));
             UserStory userStory = userStoryMapper.domainToDto(userStoryEntity);
 
             return userStory;
-        } else {
-            throw new EntityNotFoundException("User story with id " + id + " not found");
-        }
+
     }
 
     public void deleteUserStory(Long id) {
