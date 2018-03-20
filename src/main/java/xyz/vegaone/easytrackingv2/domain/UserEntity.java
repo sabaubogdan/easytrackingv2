@@ -20,6 +20,10 @@ public class UserEntity {
     @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER)
     private List<ProjectEntity> projectEntityList;
 
+    @OneToMany(mappedBy = "user")
+    private List<UserStoryEntity> userStoryList;
+
+
     public Long getId() {
         return id;
     }
@@ -50,5 +54,13 @@ public class UserEntity {
 
     public void setProjectEntityList(List<ProjectEntity> projectEntityList) {
         this.projectEntityList = projectEntityList;
+    }
+
+    public List<UserStoryEntity> getUserStoryList() {
+        return userStoryList;
+    }
+
+    public void setUserStoryList(List<UserStoryEntity> userStoryList) {
+        this.userStoryList = userStoryList;
     }
 }

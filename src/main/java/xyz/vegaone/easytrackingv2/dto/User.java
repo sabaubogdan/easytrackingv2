@@ -1,5 +1,7 @@
 package xyz.vegaone.easytrackingv2.dto;
 
+import java.util.List;
+
 public class User {
 
     private Long id;
@@ -7,6 +9,8 @@ public class User {
     private String name;
 
     private String email;
+
+    private List<UserStory> userList;
 
     public Long getId() {
         return id;
@@ -30,5 +34,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<UserStory> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<UserStory> userList) {
+        this.userList = userList;
     }
 }

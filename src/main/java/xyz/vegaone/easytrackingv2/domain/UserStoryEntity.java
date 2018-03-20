@@ -29,6 +29,10 @@ public class UserStoryEntity {
     @JoinColumn(name = "project_id")
     private ProjectEntity project;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
     public Long getId() {
         return id;
     }
@@ -83,5 +87,13 @@ public class UserStoryEntity {
 
     public void setProject(ProjectEntity project) {
         this.project = project;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 }

@@ -16,6 +16,8 @@ public class UserStory {
 
     private Project project;
 
+    private User user;
+
     public Long getId() {
         return id;
     }
@@ -70,5 +72,13 @@ public class UserStory {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
