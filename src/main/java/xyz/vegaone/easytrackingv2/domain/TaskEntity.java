@@ -1,11 +1,10 @@
 package xyz.vegaone.easytrackingv2.domain;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "user_story")
-public class UserStoryEntity {
+@Table(name = "task")
+public class TaskEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,15 +26,8 @@ public class UserStoryEntity {
     private Long estimation;
 
     @ManyToOne
-    @JoinColumn(name = "project_id")
-    private ProjectEntity project;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
-
-    @OneToMany(mappedBy = "userStory")
-    private List<TaskEntity> taskEntityList;
+    @JoinColumn(name = "user_story_id")
+    private UserStoryEntity userStory;
 
     public Long getId() {
         return id;
@@ -85,27 +77,11 @@ public class UserStoryEntity {
         this.estimation = estimation;
     }
 
-    public ProjectEntity getProject() {
-        return project;
+    public UserStoryEntity getUserStory() {
+        return userStory;
     }
 
-    public void setProject(ProjectEntity project) {
-        this.project = project;
-    }
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
-
-    public List<TaskEntity> getTaskEntityList() {
-        return taskEntityList;
-    }
-
-    public void setTaskEntityList(List<TaskEntity> taskEntityList) {
-        this.taskEntityList = taskEntityList;
+    public void setUserStory(UserStoryEntity userStory) {
+        this.userStory = userStory;
     }
 }
