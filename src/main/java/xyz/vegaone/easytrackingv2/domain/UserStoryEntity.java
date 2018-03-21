@@ -35,7 +35,7 @@ public class UserStoryEntity {
     private UserEntity user;
 
     @OneToMany(mappedBy = "userStory")
-    private List<TaskEntity> taskEntityList;
+    private List<TaskEntity> tasks;
 
     public Long getId() {
         return id;
@@ -101,11 +101,11 @@ public class UserStoryEntity {
         this.user = user;
     }
 
-    public List<TaskEntity> getTaskEntityList() {
-        return taskEntityList;
+    public List<TaskEntity> getTasks() {
+        return tasks;
     }
 
-    public void setTaskEntityList(List<TaskEntity> taskEntityList) {
-        this.taskEntityList = taskEntityList;
+    public void setTasks(List<TaskEntity> tasks) {
+        this.tasks = tasks;
     }
 }

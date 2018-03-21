@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.vegaone.easytrackingv2.domain.TaskEntity;
 import xyz.vegaone.easytrackingv2.dto.Task;
+import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
 import xyz.vegaone.easytrackingv2.mapper.TaskMapper;
 import xyz.vegaone.easytrackingv2.repo.TaskRepo;
 
@@ -35,7 +36,7 @@ public class TaskService {
         Optional<TaskEntity> taskEntityOptional = taskRepo.findById(id);
 
         TaskEntity taskEntity = taskEntityOptional.orElseThrow(() ->
-                new xyz.vegaone.easytrackingv2.exception.EntityNotFoundException("Task with id + " + id + " not found"));
+                new EntityNotFoundException("Task with id + " + id + " not found"));
         Task task = taskMapper.domainToDto(taskEntity);
 
         return task;
