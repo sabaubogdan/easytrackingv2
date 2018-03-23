@@ -1,26 +1,33 @@
-package xyz.vegaone.easytrackingv2.dto;
+package xyz.vegaone.easytrackingv2.domain;
 
-import java.util.List;
+import javax.persistence.*;
 
-public class UserStory {
+@Entity
+@Table(name = "task")
+public class TaskEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "status")
     private String status;
 
+    @Column(name = "priority")
     private Long priority;
 
+    @Column(name = "estimation")
     private Long estimation;
 
-    private Project project;
-
-    private User user;
-
-    private List<Task> tasks;
+    @ManyToOne
+    @JoinColumn(name = "user_story_id")
+    private UserStoryEntity userStory;
 
     public Long getId() {
         return id;
@@ -70,27 +77,11 @@ public class UserStory {
         this.estimation = estimation;
     }
 
-    public Project getProject() {
-        return project;
+    public UserStoryEntity getUserStory() {
+        return userStory;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setUserStory(UserStoryEntity userStory) {
+        this.userStory = userStory;
     }
 }

@@ -107,5 +107,32 @@
                                  referencedColumnNames="id"
                                  referencedTableName="user"/>
     </changeSet>
+    <changeSet id="11" author="Bogdan">
+        <createTable tableName="task">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(250)" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(1000)" >
+            </column>
+            <column name="status" type="varchar(50)" >
+            </column>
+            <column name="priority" type="int" >
+            </column>
+            <column name="estimation" type="int" >
+            </column>
+            <column name="user_story_id" type="int" >
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="12" author="Bogdan">
+        <addForeignKeyConstraint baseColumnNames="user_story_id"
+                                 baseTableName="task"
+                                 constraintName="fk_user_story_task"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_story"/>
+    </changeSet>
 
 </databaseChangeLog>

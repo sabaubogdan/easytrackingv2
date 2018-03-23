@@ -1,6 +1,7 @@
 package xyz.vegaone.easytrackingv2.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user_story")
@@ -32,6 +33,9 @@ public class UserStoryEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    @OneToMany(mappedBy = "userStory")
+    private List<TaskEntity> tasks;
 
     public Long getId() {
         return id;
@@ -95,5 +99,13 @@ public class UserStoryEntity {
 
     public void setUser(UserEntity user) {
         this.user = user;
+    }
+
+    public List<TaskEntity> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<TaskEntity> tasks) {
+        this.tasks = tasks;
     }
 }
