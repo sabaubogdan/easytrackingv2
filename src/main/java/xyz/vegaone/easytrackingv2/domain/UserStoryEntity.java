@@ -37,6 +37,9 @@ public class UserStoryEntity {
     @OneToMany(mappedBy = "userStory")
     private List<TaskEntity> tasks;
 
+    @OneToMany(mappedBy = "userStory")
+    private List<BugEntity> bugEntities;
+
     public Long getId() {
         return id;
     }
@@ -107,5 +110,13 @@ public class UserStoryEntity {
 
     public void setTasks(List<TaskEntity> tasks) {
         this.tasks = tasks;
+    }
+
+    public List<BugEntity> getBugEntities() {
+        return bugEntities;
+    }
+
+    public void setBugEntities(List<BugEntity> bugEntities) {
+        this.bugEntities = bugEntities;
     }
 }

@@ -22,6 +22,8 @@ public class UserStory {
 
     private List<Task> tasks;
 
+    private List<Bug> bugs;
+
     public Long getId() {
         return id;
     }
@@ -92,5 +94,13 @@ public class UserStory {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public List<Bug> getBugs() {
+        return bugs;
+    }
+
+    public void setBugs(List<Bug> bugs) {
+        this.bugs = bugs;
     }
 }
