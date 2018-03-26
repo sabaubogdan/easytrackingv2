@@ -1,8 +1,6 @@
 package xyz.vegaone.easytrackingv2.dto;
 
-import java.util.List;
-
-public class UserStory {
+public class Bug {
 
     private Long id;
 
@@ -12,17 +10,15 @@ public class UserStory {
 
     private String status;
 
-    private Long priority;
+    private Integer priority;
 
-    private Long estimation;
+    private Integer estimation;
 
-    private Project project;
+    private String severity;
+
+    private UserStory userStory;
 
     private User user;
-
-    private List<Task> tasks;
-
-    private List<Bug> bugs;
 
     public Long getId() {
         return id;
@@ -56,28 +52,36 @@ public class UserStory {
         this.status = status;
     }
 
-    public Long getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(Long priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
-    public Long getEstimation() {
+    public Integer getEstimation() {
         return estimation;
     }
 
-    public void setEstimation(Long estimation) {
+    public void setEstimation(Integer estimation) {
         this.estimation = estimation;
     }
 
-    public Project getProject() {
-        return project;
+    public String getSeverity() {
+        return severity;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public UserStory getUserStory() {
+        return userStory;
+    }
+
+    public void setUserStory(UserStory userStory) {
+        this.userStory = userStory;
     }
 
     public User getUser() {
@@ -86,21 +90,5 @@ public class UserStory {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    public List<Bug> getBugs() {
-        return bugs;
-    }
-
-    public void setBugs(List<Bug> bugs) {
-        this.bugs = bugs;
     }
 }

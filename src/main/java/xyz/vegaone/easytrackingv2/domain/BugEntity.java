@@ -1,11 +1,10 @@
 package xyz.vegaone.easytrackingv2.domain;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "user_story")
-public class UserStoryEntity {
+@Table(name = "bug")
+public class BugEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,24 +20,21 @@ public class UserStoryEntity {
     private String status;
 
     @Column(name = "priority")
-    private Long priority;
+    private Integer priority;
 
     @Column(name = "estimation")
-    private Long estimation;
+    private Integer estimation;
+
+    @Column(name = "severity")
+    private String severity;
 
     @ManyToOne
-    @JoinColumn(name = "project_id")
-    private ProjectEntity project;
+    @JoinColumn(name = "user_story_id")
+    private UserStoryEntity userStory;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user;
-
-    @OneToMany(mappedBy = "userStory")
-    private List<TaskEntity> tasks;
-
-    @OneToMany(mappedBy = "userStory")
-    private List<BugEntity> bugs;
+    private UserEntity userEntity;
 
     public Long getId() {
         return id;
@@ -72,51 +68,43 @@ public class UserStoryEntity {
         this.status = status;
     }
 
-    public Long getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(Long priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
-    public Long getEstimation() {
+    public Integer getEstimation() {
         return estimation;
     }
 
-    public void setEstimation(Long estimation) {
+    public void setEstimation(Integer estimation) {
         this.estimation = estimation;
     }
 
-    public ProjectEntity getProject() {
-        return project;
+    public String getSeverity() {
+        return severity;
     }
 
-    public void setProject(ProjectEntity project) {
-        this.project = project;
+    public void setSeverity(String severity) {
+        this.severity = severity;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public UserStoryEntity getUserStory() {
+        return userStory;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setUserStory(UserStoryEntity userStory) {
+        this.userStory = userStory;
     }
 
-    public List<TaskEntity> getTasks() {
-        return tasks;
+    public UserEntity getUserEntity() {
+        return userEntity;
     }
 
-    public void setTasks(List<TaskEntity> tasks) {
-        this.tasks = tasks;
-    }
-
-    public List<BugEntity> getBugs() {
-        return bugs;
-    }
-
-    public void setBugs(List<BugEntity> bugs) {
-        this.bugs = bugs;
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }
