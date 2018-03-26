@@ -71,6 +71,7 @@ public abstract class UserStoryMapper {
         if (userStoryEntity.getUser() != null) {
             User user = new User();
             user.setId(userStoryEntity.getUser().getId());
+            user.setName(userStoryEntity.getUser().getName());
 
             userStory.setUser(user);
         } else {
@@ -103,6 +104,7 @@ public abstract class UserStoryMapper {
         if (userStory.getUser() != null) {
             UserEntity userEntity = new UserEntity();
             userEntity.setId(userStory.getUser().getId());
+            userEntity.setName(userStory.getUser().getName());
 
             userStoryEntity.setUser(userEntity);
         } else {
