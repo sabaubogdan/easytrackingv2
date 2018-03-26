@@ -10,7 +10,7 @@ public class User {
 
     private String email;
 
-    private List<UserStory> userList;
+    private List<UserStory> userList; // switch to userStoryList and fix infinite loop
 
     public Long getId() {
         return id;
