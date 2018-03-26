@@ -15,8 +15,7 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class BugService {
-
-
+    
     private BugRepo bugRepo;
 
     private BugMapper bugMapper;

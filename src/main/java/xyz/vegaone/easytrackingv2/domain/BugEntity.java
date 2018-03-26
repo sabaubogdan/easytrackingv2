@@ -32,6 +32,10 @@ public class BugEntity {
     @JoinColumn(name = "user_story_id")
     private UserStoryEntity userStory;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
+
     public Long getId() {
         return id;
     }
@@ -94,5 +98,13 @@ public class BugEntity {
 
     public void setUserStory(UserStoryEntity userStory) {
         this.userStory = userStory;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }

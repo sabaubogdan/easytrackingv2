@@ -12,6 +12,8 @@ public class User {
 
     private List<UserStory> userList;
 
+    private List<User> usersList;
+
     public Long getId() {
         return id;
     }
@@ -42,5 +44,13 @@ public class User {
 
     public void setUserList(List<UserStory> userList) {
         this.userList = userList;
+    }
+
+    public List<User> getUsersList() {
+        return usersList;
+    }
+
+    public void setUsersList(List<User> usersList) {
+        this.usersList = usersList;
     }
 }

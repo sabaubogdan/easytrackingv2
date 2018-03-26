@@ -1,5 +1,7 @@
 package xyz.vegaone.easytrackingv2.domain;
 
+import xyz.vegaone.easytrackingv2.dto.User;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -22,6 +24,9 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "user")
     private List<UserStoryEntity> userStoryList;
+
+    @OneToMany(mappedBy = "userEntity")
+    private List<UserEntity> userEntity;
 
 
     public Long getId() {
@@ -62,5 +67,13 @@ public class UserEntity {
 
     public void setUserStoryList(List<UserStoryEntity> userStoryList) {
         this.userStoryList = userStoryList;
+    }
+
+    public List<UserEntity> getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(List<UserEntity> userEntity) {
+        this.userEntity = userEntity;
     }
 }

@@ -10,7 +10,6 @@ import xyz.vegaone.easytrackingv2.dto.Bug;
 import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
 import xyz.vegaone.easytrackingv2.service.BugService;
 
-
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class BugServiceTest {

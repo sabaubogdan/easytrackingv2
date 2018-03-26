@@ -163,6 +163,18 @@
                              referencedColumnNames="id"
                              referencedTableName="user_story"/>
     </changeSet>
+    <changeSet id="15" author="Bogdan" >
+    <addColumn tableName="bug">
+        <column name="user_id" type="int"/>
+    </addColumn>
+    </changeSet>
+    <changeSet id="16" author="Bogdan">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="bug"
+                                 constraintName="fk_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+    </changeSet>
 
 
 </databaseChangeLog>
