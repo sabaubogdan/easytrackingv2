@@ -1,8 +1,14 @@
 package xyz.vegaone.easytrackingv2.domain;
 
-import xyz.vegaone.easytrackingv2.dto.User;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
@@ -25,9 +31,11 @@ public class UserEntity {
     @OneToMany(mappedBy = "user")
     private List<UserStoryEntity> userStoryList;
 
-    @OneToMany(mappedBy = "userEntity")
-    private List<UserEntity> userEntity;
+    @OneToMany(mappedBy = "user")
+    private List<BugEntity> bugList;
 
+    @OneToMany(mappedBy = "user")
+    private List<TaskEntity> taskList;
 
     public Long getId() {
         return id;
@@ -69,11 +77,19 @@ public class UserEntity {
         this.userStoryList = userStoryList;
     }
 
-    public List<UserEntity> getUserEntity() {
-        return userEntity;
+    public List<BugEntity> getBugList() {
+        return bugList;
     }
 
-    public void setUserEntity(List<UserEntity> userEntity) {
-        this.userEntity = userEntity;
+    public void setBugList(List<BugEntity> bugList) {
+        this.bugList = bugList;
+    }
+
+    public List<TaskEntity> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(List<TaskEntity> taskList) {
+        this.taskList = taskList;
     }
 }

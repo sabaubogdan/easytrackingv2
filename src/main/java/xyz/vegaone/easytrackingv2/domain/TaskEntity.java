@@ -29,6 +29,10 @@ public class TaskEntity {
     @JoinColumn(name = "user_story_id")
     private UserStoryEntity userStory;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
     public Long getId() {
         return id;
     }

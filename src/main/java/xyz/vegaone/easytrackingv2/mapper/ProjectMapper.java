@@ -4,6 +4,7 @@ import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import xyz.vegaone.easytrackingv2.domain.ProjectEntity;
@@ -17,10 +18,19 @@ public abstract class ProjectMapper {
     @Autowired
     private UserStoryMapper userStoryMapper;
 
-    @Mapping(target = "userStoryList", ignore = true)
+    @Autowired
+    private UserMapper userMapper;
+
+    @Mappings({
+            @Mapping(target = "userList", ignore = true),
+            @Mapping(target = "userStoryList", ignore = true)
+    })
     public abstract Project domainToDto(ProjectEntity projectEntity);
 
-    @Mapping(target = "userStoryList", ignore = true)
+    @Mappings({
+            @Mapping(target = "userList", ignore = true),
+            @Mapping(target = "userStoryList", ignore = true)
+    })
     public abstract ProjectEntity dtoToDomain(Project project);
 
     public abstract List<Project> domainToDtoList(List<ProjectEntity> projectEntityList);
@@ -32,12 +42,20 @@ public abstract class ProjectMapper {
         if (!CollectionUtils.isEmpty(projectEntity.getUserStoryList())) {
             project.setUserStoryList(userStoryMapper.domainToDtoList(projectEntity.getUserStoryList()));
         }
+
+        if (!CollectionUtils.isEmpty(projectEntity.getUserList())) {
+            project.setUserList(userMapper.domainToDtoList(projectEntity.getUserList()));
+        }
     }
 
     @AfterMapping
     void addUserStoryToDomain(Project project, @MappingTarget ProjectEntity projectEntity) {
         if (!CollectionUtils.isEmpty(project.getUserStoryList())) {
             projectEntity.setUserStoryList(userStoryMapper.dtoToDomainList(project.getUserStoryList()));
+        }
+
+        if (!CollectionUtils.isEmpty(project.getUserList())) {
+            projectEntity.setUserList(userMapper.dtoToDomainList(project.getUserList()));
         }
     }
 
