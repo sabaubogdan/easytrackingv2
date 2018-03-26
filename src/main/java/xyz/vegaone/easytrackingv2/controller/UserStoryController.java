@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import xyz.vegaone.easytrackingv2.dto.UserStory;
 import xyz.vegaone.easytrackingv2.service.UserStoryService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/api/userstory")
 @Slf4j
@@ -24,6 +26,11 @@ public class UserStoryController {
         UserStory userStory = userStoryService.getUserStory(id);
 
         return userStory;
+    }
+
+    @GetMapping(value = "/projectid/{id}")
+    public List<UserStory> getUserStoryByProjectId(@PathVariable(value = "id") Long projectId) {
+        return userStoryService.getUserStoryByProjectId(projectId);
     }
 
     @PostMapping

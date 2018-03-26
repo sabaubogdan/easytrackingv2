@@ -9,6 +9,7 @@ import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
 import xyz.vegaone.easytrackingv2.mapper.UserStoryMapper;
 import xyz.vegaone.easytrackingv2.repo.UserStoryRepo;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,6 +42,14 @@ public class UserStoryService {
             UserStory userStory = userStoryMapper.domainToDto(userStoryEntity);
 
             return userStory;
+
+    }
+
+    public List<UserStory> getUserStoryByProjectId(Long projectId) {
+
+        List<UserStoryEntity> userStoryEntityList = userStoryRepo.findAllByProjectId(projectId);
+
+        return userStoryMapper.domainToDtoList(userStoryEntityList);
 
     }
 
