@@ -10,9 +10,11 @@ public class User {
 
     private String email;
 
-    private List<UserStory> userList; // switch to userStoryList and fix infinite loop
+    private List<UserStory> userStoryList;
 
-    private List<User> usersList;
+    private List<Task> taskList;
+
+    private List<Bug> bugList;
 
     public Long getId() {
         return id;
@@ -38,19 +40,27 @@ public class User {
         this.email = email;
     }
 
-    public List<UserStory> getUserList() {
-        return userList;
+    public List<UserStory> getUserStoryList() {
+        return userStoryList;
     }
 
-    public void setUserList(List<UserStory> userList) {
-        this.userList = userList;
+    public void setUserStoryList(List<UserStory> userStoryList) {
+        this.userStoryList = userStoryList;
     }
 
-    public List<User> getUsersList() {
-        return usersList;
+    public List<Task> getTaskList() {
+        return taskList;
     }
 
-    public void setUsersList(List<User> usersList) {
-        this.usersList = usersList;
+    public void setTaskList(List<Task> taskList) {
+        this.taskList = taskList;
+    }
+
+    public List<Bug> getBugList() {
+        return bugList;
+    }
+
+    public void setBugList(List<Bug> bugList) {
+        this.bugList = bugList;
     }
 }

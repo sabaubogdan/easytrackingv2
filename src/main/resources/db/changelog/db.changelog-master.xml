@@ -175,6 +175,17 @@
                                  referencedColumnNames="id"
                                  referencedTableName="user"/>
     </changeSet>
-
+    <changeSet id="17" author="Dragos" >
+        <addColumn tableName="task">
+            <column name="user_id" type="int"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="18" author="Dragos">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="task"
+                                 constraintName="fk_user_id_task"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+    </changeSet>
 
 </databaseChangeLog>

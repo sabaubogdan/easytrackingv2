@@ -16,6 +16,8 @@ public class Task {
 
     private UserStory userStory;
 
+    private User user;
+
     public Long getId() {
         return id;
     }
@@ -71,4 +73,13 @@ public class Task {
     public void setUserStory(UserStory userStory) {
         this.userStory = userStory;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }
