@@ -4,9 +4,12 @@ import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Mappings;
 import xyz.vegaone.easytrackingv2.domain.BugEntity;
+import xyz.vegaone.easytrackingv2.domain.UserEntity;
 import xyz.vegaone.easytrackingv2.domain.UserStoryEntity;
 import xyz.vegaone.easytrackingv2.dto.Bug;
+import xyz.vegaone.easytrackingv2.dto.User;
 import xyz.vegaone.easytrackingv2.dto.UserStory;
 
 import java.util.List;
@@ -14,10 +17,16 @@ import java.util.List;
 @Mapper(componentModel = "Spring")
 public abstract class BugMapper {
 
-    @Mapping(target = "userStory", ignore = true)
+    @Mappings({
+            @Mapping(target = "userStory", ignore = true),
+            @Mapping(target = "user", ignore = true)
+    })
     public abstract Bug domainToDto(BugEntity bugEntity);
 
-    @Mapping(target = "userStory", ignore = true)
+    @Mappings({
+            @Mapping(target = "userStory", ignore = true),
+            @Mapping(target = "user", ignore = true)
+    })
     public abstract BugEntity dtoToDomain(Bug bug);
 
     public abstract List<Bug> domainToDtoList(List<BugEntity> bugEntityList);
@@ -33,6 +42,13 @@ public abstract class BugMapper {
 
             bug.setUserStory(userStory);
         }
+
+        if (bugEntity.getUser() != null) {
+            User user = new User();
+            user.setId(bugEntity.getUser().getId());
+
+            bug.setUser(user);
+        }
     }
 
     @AfterMapping
@@ -42,6 +58,13 @@ public abstract class BugMapper {
             userStoryEntity.setId(bug.getUserStory().getId());
 
             bugEntity.setUserStory(userStoryEntity);
+        }
+
+        if (bug.getUser() != null) {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setId(bug.getUser().getId());
+
+            bugEntity.setUser(userEntity);
         }
     }
 

@@ -88,4 +88,12 @@ public class TaskEntity {
     public void setUserStory(UserStoryEntity userStory) {
         this.userStory = userStory;
     }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
 }
