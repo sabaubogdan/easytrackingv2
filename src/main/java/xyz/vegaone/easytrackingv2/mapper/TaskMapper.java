@@ -42,10 +42,10 @@ public abstract class TaskMapper {
             task.setUserStory(userStory);
         }
 
-
         if (taskEntity.getUser() != null) {
             User user = new User();
             user.setId(taskEntity.getUser().getId());
+            user.setName(taskEntity.getUser().getName());
 
             task.setUser(user);
         }
@@ -63,6 +63,7 @@ public abstract class TaskMapper {
         if (task.getUser() != null) {
             UserEntity userEntity = new UserEntity();
             userEntity.setId(task.getUser().getId());
+            userEntity.setName(task.getUser().getName());
 
             taskEntity.setUser(userEntity);
         }

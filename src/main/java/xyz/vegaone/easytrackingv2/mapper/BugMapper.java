@@ -46,6 +46,7 @@ public abstract class BugMapper {
         if (bugEntity.getUser() != null) {
             User user = new User();
             user.setId(bugEntity.getUser().getId());
+            user.setName(bugEntity.getUser().getName());
 
             bug.setUser(user);
         }
@@ -63,6 +64,7 @@ public abstract class BugMapper {
         if (bug.getUser() != null) {
             UserEntity userEntity = new UserEntity();
             userEntity.setId(bug.getUser().getId());
+            userEntity.setName(bug.getUser().getName());
 
             bugEntity.setUser(userEntity);
         }
