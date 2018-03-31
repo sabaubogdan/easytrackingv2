@@ -8,7 +8,9 @@ import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import xyz.vegaone.easytrackingv2.domain.ProjectEntity;
+import xyz.vegaone.easytrackingv2.domain.UserEntity;
 import xyz.vegaone.easytrackingv2.dto.Project;
+import xyz.vegaone.easytrackingv2.dto.User;
 
 import java.util.List;
 
@@ -44,7 +46,13 @@ public abstract class ProjectMapper {
         }
 
         if (!CollectionUtils.isEmpty(projectEntity.getUserList())) {
-            project.setUserList(userMapper.domainToDtoList(projectEntity.getUserList()));
+            List<User> userList = userMapper.domainToDtoList(projectEntity.getUserList());
+            userList.forEach(user -> {
+                user.setUserStoryList(null);
+                user.setTaskList(null);
+                user.setUserStoryList(null);
+            });
+            project.setUserList(userList);
         }
     }
 
@@ -55,7 +63,13 @@ public abstract class ProjectMapper {
         }
 
         if (!CollectionUtils.isEmpty(project.getUserList())) {
-            projectEntity.setUserList(userMapper.dtoToDomainList(project.getUserList()));
+            List<UserEntity> userList = userMapper.dtoToDomainList(project.getUserList());
+            userList.forEach(user -> {
+                user.setUserStoryList(null);
+                user.setTaskList(null);
+                user.setUserStoryList(null);
+            });
+            projectEntity.setUserList(userList);
         }
     }
 
