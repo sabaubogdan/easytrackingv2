@@ -29,6 +29,10 @@ public class ProjectEntity {
     @OneToMany(mappedBy = "project")
     private List<UserStoryEntity> userStoryList;
 
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private OrganizationEntity organization;
+
     public ProjectEntity() {
     }
 
@@ -83,5 +87,13 @@ public class ProjectEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public OrganizationEntity getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(OrganizationEntity organization) {
+        this.organization = organization;
     }
 }

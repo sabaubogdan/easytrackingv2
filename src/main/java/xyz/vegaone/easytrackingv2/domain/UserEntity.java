@@ -1,14 +1,6 @@
 package xyz.vegaone.easytrackingv2.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -36,6 +28,10 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "user")
     private List<TaskEntity> taskList;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private OrganizationEntity organization;
 
     public Long getId() {
         return id;
@@ -91,5 +87,13 @@ public class UserEntity {
 
     public void setTaskList(List<TaskEntity> taskList) {
         this.taskList = taskList;
+    }
+
+    public OrganizationEntity getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(OrganizationEntity organization) {
+        this.organization = organization;
     }
 }
