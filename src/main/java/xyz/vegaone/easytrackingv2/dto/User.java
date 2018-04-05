@@ -16,6 +16,8 @@ public class User {
 
     private List<Bug> bugList;
 
+    private Organization organization;
+
     public Long getId() {
         return id;
     }
@@ -62,5 +64,13 @@ public class User {
 
     public void setBugList(List<Bug> bugList) {
         this.bugList = bugList;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 }

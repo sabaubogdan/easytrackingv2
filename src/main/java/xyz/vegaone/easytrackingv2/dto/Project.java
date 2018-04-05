@@ -16,6 +16,8 @@ public class Project {
 
     private List<UserStory> userStoryList;
 
+    private Organization organization;
+
     public List<Sprint> getSprintList() {
         return sprintList;
     }
@@ -62,5 +64,13 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 }
