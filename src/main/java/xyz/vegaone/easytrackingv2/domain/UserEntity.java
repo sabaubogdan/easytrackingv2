@@ -30,7 +30,7 @@ public class UserEntity {
     private List<TaskEntity> taskList;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "organization_id")
     private OrganizationEntity organization;
 
     public Long getId() {

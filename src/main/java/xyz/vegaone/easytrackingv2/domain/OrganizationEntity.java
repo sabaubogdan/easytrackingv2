@@ -20,6 +20,14 @@ public class OrganizationEntity {
     @OneToMany(mappedBy = "organization")
     private List<ProjectEntity> projectList;
 
+    public OrganizationEntity() {
+    }
+
+    public OrganizationEntity(String name, Long id) {
+        this.name = name;
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
