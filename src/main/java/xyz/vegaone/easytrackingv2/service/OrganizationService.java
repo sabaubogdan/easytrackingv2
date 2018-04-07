@@ -97,8 +97,8 @@ public class OrganizationService {
     }
 
     @Transactional
-    public List<Organization> findAllOrganizations() {
-        List<OrganizationEntity> organizationEntityList = organizationRepo.findAllOrganizations();
+    public List<Organization> findAllOrganizationsBrief() {
+        List<OrganizationEntity> organizationEntityList = organizationRepo.findAllOrganizationsBrief();
 
         return organizationMapper.domainToDtoList(organizationEntityList);
     }

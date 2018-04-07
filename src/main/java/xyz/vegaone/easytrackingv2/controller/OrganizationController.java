@@ -47,8 +47,8 @@ public class OrganizationController {
 
     @GetMapping(value = "/all")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Organization> findAllOrganizations() {
-        List<Organization> allOrganizations = organizationService.findAllOrganizations();
+    public List<Organization> findAllOrganizationsBrief() {
+        List<Organization> allOrganizations = organizationService.findAllOrganizationsBrief();
 
         return allOrganizations;
     }
