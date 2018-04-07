@@ -38,11 +38,10 @@ public abstract class OrganizationMapper {
     public abstract List<OrganizationEntity> dtoToDomainList(List<Organization> organizationList);
 
     @AfterMapping
-    void addUserProjectToDto(OrganizationEntity organizationEntity, @MappingTarget Organization organization) {
+    void addIgnoredFieldsToDto(OrganizationEntity organizationEntity, @MappingTarget Organization organization) {
         if (!CollectionUtils.isEmpty(organizationEntity.getProjectList())) {
             List<Project> projectList = projectMapper.domainToDtoList(organizationEntity.getProjectList());
             projectList.forEach(project -> {
-//                project.setOrganization(organization);
                 project.setUserStoryList(null);
                 project.setUserList(null);
                 project.setSprintList(null);
@@ -66,7 +65,7 @@ public abstract class OrganizationMapper {
     }
 
     @AfterMapping
-    void addUserProjectToDomain(Organization organization, @MappingTarget OrganizationEntity organizationEntity) {
+    void addIgnoredFieldsToDomain(Organization organization, @MappingTarget OrganizationEntity organizationEntity) {
         if (!CollectionUtils.isEmpty(organization.getProjectList())) {
             List<ProjectEntity> projectList = projectMapper.dtoToDomainList(organization.getProjectList());
             projectList.forEach(project -> {
