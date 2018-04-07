@@ -199,11 +199,11 @@
     </changeSet>
     <changeSet id="21" author="Bogdan" >
         <addColumn tableName="user">
-            <column name="user_id" type="int"/>
+            <column name="organization_id" type="int"/>
         </addColumn>
     </changeSet>
     <changeSet id="22" author="Bogdan">
-        <addForeignKeyConstraint baseColumnNames="user_id"
+        <addForeignKeyConstraint baseColumnNames="organization_id"
                                  baseTableName="user"
                                  constraintName="fk_user_id_organization"
                                  referencedColumnNames="id"
@@ -211,11 +211,11 @@
     </changeSet>
     <changeSet id="23" author="Bogdan" >
         <addColumn tableName="project">
-            <column name="project_id" type="int"/>
+            <column name="organization_id" type="int"/>
         </addColumn>
     </changeSet>
     <changeSet id="24" author="Bogdan">
-        <addForeignKeyConstraint baseColumnNames="project_id"
+        <addForeignKeyConstraint baseColumnNames="organization_id"
                                  baseTableName="project"
                                  constraintName="fk_project_id_organization"
                                  referencedColumnNames="id"

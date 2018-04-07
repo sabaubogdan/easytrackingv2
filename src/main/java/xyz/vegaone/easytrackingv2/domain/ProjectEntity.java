@@ -30,7 +30,7 @@ public class ProjectEntity {
     private List<UserStoryEntity> userStoryList;
 
     @ManyToOne
-    @JoinColumn(name = "project_id")
+    @JoinColumn(name = "organization_id")
     private OrganizationEntity organization;
 
     public ProjectEntity() {
