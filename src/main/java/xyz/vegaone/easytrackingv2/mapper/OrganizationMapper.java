@@ -10,6 +10,7 @@ import xyz.vegaone.easytrackingv2.dto.Organization;
 import xyz.vegaone.easytrackingv2.dto.Project;
 import xyz.vegaone.easytrackingv2.dto.User;
 
+import java.util.Collections;
 import java.util.List;
 
 @Mapper(componentModel = "Spring")
@@ -42,22 +43,24 @@ public abstract class OrganizationMapper {
         if (!CollectionUtils.isEmpty(organizationEntity.getProjectList())) {
             List<Project> projectList = projectMapper.domainToDtoList(organizationEntity.getProjectList());
             projectList.forEach(project -> {
-                project.setUserStoryList(null);
-                project.setUserList(null);
-                project.setSprintList(null);
+                project.setUserStoryList(Collections.emptyList());
+                project.setUserList(Collections.emptyList());
+                project.setSprintList(Collections.emptyList());
             });
 
             organization.setProjectList(projectList);
         }
 
         if (!CollectionUtils.isEmpty(organizationEntity.getUserList())) {
-            List<User> userList = userMapper.domainToDtoList(organizationEntity.getUserList());
-            userList.forEach(user -> {
-                user.setEmail(null);
-                user.setBugList(null);
-                user.setUserStoryList(null);
-                user.setTaskList(null);
+            List<UserEntity> userEntityList = organizationEntity.getUserList();
+            userEntityList.forEach(userEntity -> {
+                userEntity.setBugList(Collections.emptyList());
+                userEntity.setUserStoryList(Collections.emptyList());
+                userEntity.setTaskList(Collections.emptyList());
+                userEntity.setOrganization(null);
             });
+
+            List<User> userList = userMapper.domainToDtoList(organizationEntity.getUserList());
 
             organization.setUserList(userList);
         }
@@ -69,24 +72,27 @@ public abstract class OrganizationMapper {
         if (!CollectionUtils.isEmpty(organization.getProjectList())) {
             List<ProjectEntity> projectList = projectMapper.dtoToDomainList(organization.getProjectList());
             projectList.forEach(project -> {
-                project.setUserStoryList(null);
-                project.setUserList(null);
-                project.setSprintList(null);
+                project.setUserStoryList(Collections.emptyList());
+                project.setUserList(Collections.emptyList());
+                project.setSprintList(Collections.emptyList());
             });
 
             organizationEntity.setProjectList(projectList);
         }
 
         if (!CollectionUtils.isEmpty(organization.getUserList())) {
-            List<UserEntity> userList = userMapper.dtoToDomainList(organization.getUserList());
+            List<User> userList = organization.getUserList();
+
             userList.forEach(user -> {
-                user.setEmail(null);
-                user.setBugList(null);
-                user.setUserStoryList(null);
-                user.setTaskList(null);
+                user.setBugList(Collections.emptyList());
+                user.setUserStoryList(Collections.emptyList());
+                user.setTaskList(Collections.emptyList());
+                user.setOrganization(null);
             });
 
-            organizationEntity.setUserList(userList);
+            List<UserEntity> userEntityList = userMapper.dtoToDomainList(userList);
+
+            organizationEntity.setUserList(userEntityList);
         }
     }
 }
