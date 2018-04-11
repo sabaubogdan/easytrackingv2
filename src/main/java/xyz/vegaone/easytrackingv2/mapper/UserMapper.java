@@ -7,18 +7,17 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import xyz.vegaone.easytrackingv2.domain.ProjectEntity;
 import xyz.vegaone.easytrackingv2.domain.UserEntity;
-import xyz.vegaone.easytrackingv2.domain.UserStoryEntity;
-import xyz.vegaone.easytrackingv2.dto.Project;
 import xyz.vegaone.easytrackingv2.dto.User;
-import xyz.vegaone.easytrackingv2.dto.UserStory;
 
 import java.util.Collections;
 import java.util.List;
 
 @Mapper(componentModel = "Spring")
 public abstract class UserMapper {
+
+    @Autowired
+    private OrganizationMapper organizationMapper;
 
     @Autowired
     private UserStoryMapper userStoryMapper;
@@ -30,6 +29,7 @@ public abstract class UserMapper {
     private BugMapper bugMapper;
 
     @Mappings({
+            @Mapping(target = "organization", ignore = true),
             @Mapping(target = "taskList", ignore = true),
             @Mapping(target = "bugList", ignore = true),
             @Mapping(target = "userStoryList", ignore = true)
@@ -37,13 +37,14 @@ public abstract class UserMapper {
     public abstract User domainToDto(UserEntity entity);
 
     @Mappings({
+            @Mapping(target = "organization", ignore = true),
             @Mapping(target = "taskList", ignore = true),
             @Mapping(target = "bugList", ignore = true),
             @Mapping(target = "userStoryList", ignore = true)
     })
     public abstract UserEntity dtoToDomain(User user);
 
-    public abstract List<User> domainToDtoList (List<UserEntity> userEntityList);
+    public abstract List<User> domainToDtoList(List<UserEntity> userEntityList);
 
     public abstract List<UserEntity> dtoToDomainList(List<User> userList);
 
@@ -66,6 +67,10 @@ public abstract class UserMapper {
         } else {
             user.setBugList(Collections.emptyList());
         }
+
+        if (userEntity.getOrganization() != null) {
+            user.setOrganization(organizationMapper.domainToDto(userEntity.getOrganization()));
+        }
     }
 
     @AfterMapping
@@ -86,6 +91,9 @@ public abstract class UserMapper {
             userEntity.setUserStoryList(userStoryMapper.dtoToDomainList(user.getUserStoryList()));
         } else {
             userEntity.setUserStoryList(Collections.emptyList());
+        }
+        if (user.getOrganization() != null) {
+            userEntity.setOrganization(organizationMapper.dtoToDomain(user.getOrganization()));
         }
     }
 }

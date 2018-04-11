@@ -12,6 +12,7 @@ import xyz.vegaone.easytrackingv2.domain.UserEntity;
 import xyz.vegaone.easytrackingv2.dto.Project;
 import xyz.vegaone.easytrackingv2.dto.User;
 
+import java.util.Collections;
 import java.util.List;
 
 @Mapper(componentModel = "Spring")
@@ -48,9 +49,9 @@ public abstract class ProjectMapper {
         if (!CollectionUtils.isEmpty(projectEntity.getUserList())) {
             List<User> userList = userMapper.domainToDtoList(projectEntity.getUserList());
             userList.forEach(user -> {
-                user.setUserStoryList(null);
-                user.setTaskList(null);
-                user.setUserStoryList(null);
+                user.setUserStoryList(Collections.emptyList());
+                user.setTaskList(Collections.emptyList());
+                user.setUserStoryList(Collections.emptyList());
             });
             project.setUserList(userList);
         }
@@ -65,9 +66,9 @@ public abstract class ProjectMapper {
         if (!CollectionUtils.isEmpty(project.getUserList())) {
             List<UserEntity> userList = userMapper.dtoToDomainList(project.getUserList());
             userList.forEach(user -> {
-                user.setUserStoryList(null);
-                user.setTaskList(null);
-                user.setUserStoryList(null);
+                user.setUserStoryList(Collections.emptyList());
+                user.setTaskList(Collections.emptyList());
+                user.setUserStoryList(Collections.emptyList());
             });
             projectEntity.setUserList(userList);
         }
