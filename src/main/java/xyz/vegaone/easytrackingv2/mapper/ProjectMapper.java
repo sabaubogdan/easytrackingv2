@@ -46,20 +46,25 @@ public abstract class ProjectMapper {
 
     @AfterMapping
     void addIgnoredFieldsToDto(ProjectEntity projectEntity, @MappingTarget Project project) {
+        // user story
         if (!CollectionUtils.isEmpty(projectEntity.getUserStoryList())) {
             project.setUserStoryList(userStoryMapper.domainToDtoList(projectEntity.getUserStoryList()));
         }
 
-        if (!CollectionUtils.isEmpty(projectEntity.getUserList())) {
-            List<User> userList = userMapper.domainToDtoList(projectEntity.getUserList());
-            userList.forEach(user -> {
+        // user list
+        List<UserEntity> userEntityList = projectEntity.getUserList();
+        if (!CollectionUtils.isEmpty(userEntityList)) {
+            userEntityList.forEach(user -> {
                 user.setUserStoryList(Collections.emptyList());
                 user.setTaskList(Collections.emptyList());
+                user.setBugList(Collections.emptyList());
                 user.setUserStoryList(Collections.emptyList());
             });
+            List<User> userList = userMapper.domainToDtoList(userEntityList);
             project.setUserList(userList);
         }
 
+        // organization
         if (projectEntity.getOrganization() != null) {
             Organization organization = new Organization();
             organization.setId(projectEntity.getOrganization().getId());
@@ -70,24 +75,30 @@ public abstract class ProjectMapper {
 
     @AfterMapping
     void addIgnoredFieldsToDomain(Project project, @MappingTarget ProjectEntity projectEntity) {
+        // user story
         if (!CollectionUtils.isEmpty(project.getUserStoryList())) {
             projectEntity.setUserStoryList(userStoryMapper.dtoToDomainList(project.getUserStoryList()));
         }
 
-        if (!CollectionUtils.isEmpty(project.getUserList())) {
-            List<UserEntity> userList = userMapper.dtoToDomainList(project.getUserList());
+        // user list
+        List<User> userList = project.getUserList();
+        if (!CollectionUtils.isEmpty(userList)) {
             userList.forEach(user -> {
                 user.setUserStoryList(Collections.emptyList());
                 user.setTaskList(Collections.emptyList());
+                user.setBugList(Collections.emptyList());
                 user.setUserStoryList(Collections.emptyList());
             });
-            projectEntity.setUserList(userList);
+
+            List<UserEntity> userEntityList = userMapper.dtoToDomainList(userList);
+            projectEntity.setUserList(userEntityList);
         }
 
+        // organization
         if (project.getOrganization() != null) {
             OrganizationEntity organizationEntity = new OrganizationEntity();
-            organizationEntity.setId(projectEntity.getOrganization().getId());
-            organizationEntity.setName(projectEntity.getOrganization().getName());
+            organizationEntity.setId(project.getOrganization().getId());
+            organizationEntity.setName(project.getOrganization().getName());
             projectEntity.setOrganization(organizationEntity);
         }
     }
