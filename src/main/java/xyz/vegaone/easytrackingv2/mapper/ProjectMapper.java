@@ -7,8 +7,10 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
+import xyz.vegaone.easytrackingv2.domain.OrganizationEntity;
 import xyz.vegaone.easytrackingv2.domain.ProjectEntity;
 import xyz.vegaone.easytrackingv2.domain.UserEntity;
+import xyz.vegaone.easytrackingv2.dto.Organization;
 import xyz.vegaone.easytrackingv2.dto.Project;
 import xyz.vegaone.easytrackingv2.dto.User;
 
@@ -26,12 +28,14 @@ public abstract class ProjectMapper {
 
     @Mappings({
             @Mapping(target = "userList", ignore = true),
+            @Mapping(target = "organization", ignore = true),
             @Mapping(target = "userStoryList", ignore = true)
     })
     public abstract Project domainToDto(ProjectEntity projectEntity);
 
     @Mappings({
             @Mapping(target = "userList", ignore = true),
+            @Mapping(target = "organization", ignore = true),
             @Mapping(target = "userStoryList", ignore = true)
     })
     public abstract ProjectEntity dtoToDomain(Project project);
@@ -41,7 +45,7 @@ public abstract class ProjectMapper {
     public abstract List<ProjectEntity> dtoToDomainList(List<Project> projectList);
 
     @AfterMapping
-    void addUserStoryToDto(ProjectEntity projectEntity, @MappingTarget Project project) {
+    void addIgnoredFieldsToDto(ProjectEntity projectEntity, @MappingTarget Project project) {
         if (!CollectionUtils.isEmpty(projectEntity.getUserStoryList())) {
             project.setUserStoryList(userStoryMapper.domainToDtoList(projectEntity.getUserStoryList()));
         }
@@ -55,10 +59,17 @@ public abstract class ProjectMapper {
             });
             project.setUserList(userList);
         }
+
+        if (projectEntity.getOrganization() != null) {
+            Organization organization = new Organization();
+            organization.setId(projectEntity.getOrganization().getId());
+            organization.setName(projectEntity.getOrganization().getName());
+            project.setOrganization(organization);
+        }
     }
 
     @AfterMapping
-    void addUserStoryToDomain(Project project, @MappingTarget ProjectEntity projectEntity) {
+    void addIgnoredFieldsToDomain(Project project, @MappingTarget ProjectEntity projectEntity) {
         if (!CollectionUtils.isEmpty(project.getUserStoryList())) {
             projectEntity.setUserStoryList(userStoryMapper.dtoToDomainList(project.getUserStoryList()));
         }
@@ -71,6 +82,13 @@ public abstract class ProjectMapper {
                 user.setUserStoryList(Collections.emptyList());
             });
             projectEntity.setUserList(userList);
+        }
+
+        if (project.getOrganization() != null) {
+            OrganizationEntity organizationEntity = new OrganizationEntity();
+            organizationEntity.setId(projectEntity.getOrganization().getId());
+            organizationEntity.setName(projectEntity.getOrganization().getName());
+            projectEntity.setOrganization(organizationEntity);
         }
     }
 

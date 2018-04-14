@@ -40,14 +40,15 @@ public abstract class OrganizationMapper {
 
     @AfterMapping
     void addIgnoredFieldsToDto(OrganizationEntity organizationEntity, @MappingTarget Organization organization) {
-        if (!CollectionUtils.isEmpty(organizationEntity.getProjectList())) {
-            List<Project> projectList = projectMapper.domainToDtoList(organizationEntity.getProjectList());
-            projectList.forEach(project -> {
+        List<ProjectEntity> projectEntityList = organizationEntity.getProjectList();
+        if (!CollectionUtils.isEmpty(projectEntityList)) {
+            projectEntityList.forEach(project -> {
                 project.setUserStoryList(Collections.emptyList());
                 project.setUserList(Collections.emptyList());
                 project.setSprintList(Collections.emptyList());
             });
 
+            List<Project> projectList = projectMapper.domainToDtoList(projectEntityList);
             organization.setProjectList(projectList);
         }
 
@@ -69,15 +70,18 @@ public abstract class OrganizationMapper {
 
     @AfterMapping
     void addIgnoredFieldsToDomain(Organization organization, @MappingTarget OrganizationEntity organizationEntity) {
-        if (!CollectionUtils.isEmpty(organization.getProjectList())) {
-            List<ProjectEntity> projectList = projectMapper.dtoToDomainList(organization.getProjectList());
+        List<Project> projectList = organization.getProjectList();
+
+        if (!CollectionUtils.isEmpty(projectList)) {
             projectList.forEach(project -> {
                 project.setUserStoryList(Collections.emptyList());
                 project.setUserList(Collections.emptyList());
                 project.setSprintList(Collections.emptyList());
             });
 
-            organizationEntity.setProjectList(projectList);
+            List<ProjectEntity> projectEntityList = projectMapper.dtoToDomainList(projectList);
+
+            organizationEntity.setProjectList(projectEntityList);
         }
 
         if (!CollectionUtils.isEmpty(organization.getUserList())) {
