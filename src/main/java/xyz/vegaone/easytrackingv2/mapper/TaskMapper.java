@@ -35,6 +35,7 @@ public abstract class TaskMapper {
 
     @AfterMapping
     void addIgnoredFieldsToDto(TaskEntity taskEntity, @MappingTarget Task task) {
+        // user story
         if (taskEntity.getUserStory() != null) {
             UserStory userStory = new UserStory();
             userStory.setId(taskEntity.getUserStory().getId());
@@ -42,6 +43,7 @@ public abstract class TaskMapper {
             task.setUserStory(userStory);
         }
 
+        // user
         if (taskEntity.getUser() != null) {
             User user = new User();
             user.setId(taskEntity.getUser().getId());
@@ -53,6 +55,7 @@ public abstract class TaskMapper {
 
     @AfterMapping
     void addIgnoredFieldsToDomain(Task task, @MappingTarget TaskEntity taskEntity) {
+        // user story
         if (task.getUserStory() != null) {
             UserStoryEntity userStoryEntity = new UserStoryEntity();
             userStoryEntity.setId(task.getUserStory().getId());
@@ -60,6 +63,7 @@ public abstract class TaskMapper {
             taskEntity.setUserStory(userStoryEntity);
         }
 
+        // user
         if (task.getUser() != null) {
             UserEntity userEntity = new UserEntity();
             userEntity.setId(task.getUser().getId());

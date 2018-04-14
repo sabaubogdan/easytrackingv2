@@ -40,17 +40,26 @@ public abstract class OrganizationMapper {
 
     @AfterMapping
     void addIgnoredFieldsToDto(OrganizationEntity organizationEntity, @MappingTarget Organization organization) {
-        if (!CollectionUtils.isEmpty(organizationEntity.getProjectList())) {
-            List<Project> projectList = projectMapper.domainToDtoList(organizationEntity.getProjectList());
-            projectList.forEach(project -> {
+        // project
+        List<ProjectEntity> projectEntityList = organizationEntity.getProjectList();
+        if (!CollectionUtils.isEmpty(projectEntityList)) {
+            projectEntityList.forEach(project -> {
                 project.setUserStoryList(Collections.emptyList());
-                project.setUserList(Collections.emptyList());
                 project.setSprintList(Collections.emptyList());
+                project.getUserList().forEach(userEntity -> {
+                    userEntity.setUserStoryList(Collections.emptyList());
+                    userEntity.setTaskList(Collections.emptyList());
+                    userEntity.setBugList(Collections.emptyList());
+                    userEntity.setProjectList(Collections.emptyList());
+                    userEntity.setOrganization(null);
+                });
             });
 
+            List<Project> projectList = projectMapper.domainToDtoList(projectEntityList);
             organization.setProjectList(projectList);
         }
 
+        // user list
         if (!CollectionUtils.isEmpty(organizationEntity.getUserList())) {
             List<UserEntity> userEntityList = organizationEntity.getUserList();
             userEntityList.forEach(userEntity -> {
@@ -69,20 +78,29 @@ public abstract class OrganizationMapper {
 
     @AfterMapping
     void addIgnoredFieldsToDomain(Organization organization, @MappingTarget OrganizationEntity organizationEntity) {
-        if (!CollectionUtils.isEmpty(organization.getProjectList())) {
-            List<ProjectEntity> projectList = projectMapper.dtoToDomainList(organization.getProjectList());
+        // project
+        List<Project> projectList = organization.getProjectList();
+        if (!CollectionUtils.isEmpty(projectList)) {
             projectList.forEach(project -> {
                 project.setUserStoryList(Collections.emptyList());
-                project.setUserList(Collections.emptyList());
                 project.setSprintList(Collections.emptyList());
+                project.getUserList().forEach(user -> {
+                    user.setUserStoryList(Collections.emptyList());
+                    user.setTaskList(Collections.emptyList());
+                    user.setBugList(Collections.emptyList());
+                    user.setProjectList(Collections.emptyList());
+                    user.setOrganization(null);
+                });
             });
 
-            organizationEntity.setProjectList(projectList);
+            List<ProjectEntity> projectEntityList = projectMapper.dtoToDomainList(projectList);
+
+            organizationEntity.setProjectList(projectEntityList);
         }
 
-        if (!CollectionUtils.isEmpty(organization.getUserList())) {
-            List<User> userList = organization.getUserList();
-
+        // user list
+        List<User> userList = organization.getUserList();
+        if (!CollectionUtils.isEmpty(userList)) {
             userList.forEach(user -> {
                 user.setBugList(Collections.emptyList());
                 user.setUserStoryList(Collections.emptyList());

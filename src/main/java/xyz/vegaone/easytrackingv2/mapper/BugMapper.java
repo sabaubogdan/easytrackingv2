@@ -36,6 +36,7 @@ public abstract class BugMapper {
 
     @AfterMapping
     void addIgnoredFieldsToDto(BugEntity bugEntity, @MappingTarget Bug bug) {
+        // user story
         if (bugEntity.getUserStory() != null) {
             UserStory userStory = new UserStory();
             userStory.setId(bugEntity.getUserStory().getId());
@@ -43,6 +44,7 @@ public abstract class BugMapper {
             bug.setUserStory(userStory);
         }
 
+        // user
         if (bugEntity.getUser() != null) {
             User user = new User();
             user.setId(bugEntity.getUser().getId());
@@ -54,6 +56,7 @@ public abstract class BugMapper {
 
     @AfterMapping
     void addIgnoredFieldsToDomain(Bug bug, @MappingTarget BugEntity bugEntity) {
+        // user story
         if (bug.getUserStory() != null) {
             UserStoryEntity userStoryEntity = new UserStoryEntity();
             userStoryEntity.setId(bug.getUserStory().getId());
@@ -61,6 +64,7 @@ public abstract class BugMapper {
             bugEntity.setUserStory(userStoryEntity);
         }
 
+        // user
         if (bug.getUser() != null) {
             UserEntity userEntity = new UserEntity();
             userEntity.setId(bug.getUser().getId());

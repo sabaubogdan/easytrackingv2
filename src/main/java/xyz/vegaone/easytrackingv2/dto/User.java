@@ -10,6 +10,8 @@ public class User {
 
     private String email;
 
+    private List<Project> projectList;
+
     private List<UserStory> userStoryList;
 
     private List<Task> taskList;
@@ -72,5 +74,27 @@ public class User {
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+    public List<Project> getProjectList() {
+        return projectList;
+    }
+
+    public void setProjectList(List<Project> projectList) {
+        this.projectList = projectList;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", projectList=" + projectList +
+                ", userStoryList=" + userStoryList +
+                ", taskList=" + taskList +
+                ", bugList=" + bugList +
+                ", organization=" + organization +
+                '}';
     }
 }
