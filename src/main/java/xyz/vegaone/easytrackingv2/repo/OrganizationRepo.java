@@ -11,4 +11,5 @@ public interface OrganizationRepo extends JpaRepository<OrganizationEntity, Long
     @Query(value = "SELECT new xyz.vegaone.easytrackingv2.domain.OrganizationEntity(name, id) FROM OrganizationEntity")
     List<OrganizationEntity> findAllOrganizationsBrief();
 
+    
 }

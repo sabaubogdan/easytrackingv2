@@ -54,4 +54,8 @@ public class BugService {
 
         return savedBug;
     }
+
+    public Long getUserStatisticsBug(Long id){
+        return bugRepo.countByUserId(id);
+    }
 }

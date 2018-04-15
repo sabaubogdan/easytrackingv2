@@ -55,4 +55,8 @@ public class TaskService {
 
         return savedTask;
     }
+
+    public Long getUserStatisticsTasks(Long id){
+        return taskRepo.countByUserId(id);
+    }
 }

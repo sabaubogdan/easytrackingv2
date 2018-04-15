@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.vegaone.easytrackingv2.domain.UserEntity;
 import xyz.vegaone.easytrackingv2.dto.User;
+import xyz.vegaone.easytrackingv2.dto.UserStatistics;
 import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
 import xyz.vegaone.easytrackingv2.mapper.UserMapper;
 import xyz.vegaone.easytrackingv2.repo.UserRepo;
@@ -21,11 +22,19 @@ public class UserService {
 
     private UserRepo userRepo;
 
+    private BugService bugService;
+
+    private TaskService taskService;
+
+    private UserStoryService userStoryService;
+
     @Autowired
-    public UserService(UserMapper userMapper,
-                       UserRepo userRepo) {
+    public UserService(UserMapper userMapper, UserRepo userRepo, BugService bugService, TaskService taskService, UserStoryService userStoryService) {
         this.userMapper = userMapper;
         this.userRepo = userRepo;
+        this.bugService = bugService;
+        this.taskService = taskService;
+        this.userStoryService = userStoryService;
     }
 
     public User createUser(User user) {
@@ -69,5 +78,21 @@ public class UserService {
         userEntityList = userRepo.findAll();
 
         return userMapper.domainToDtoList(userEntityList);
+    }
+
+    public UserStatistics getUserStatistics(Long id){
+
+        UserStatistics userStatistics = new UserStatistics();
+
+        User user = getUser(id);
+
+        userStatistics.setEmail(user.getEmail());
+        userStatistics.setName(user.getName());
+        userStatistics.setOrganization(user.getOrganization());
+        userStatistics.setNumberOfBugs(bugService.getUserStatisticsBug(id));
+        userStatistics.setNumberOfTasks(taskService.getUserStatisticsTasks(id));
+        userStatistics.setNumberOfUserStories(userStoryService.getUserStatisticsUserStories(id));
+
+        return userStatistics;
     }
 }

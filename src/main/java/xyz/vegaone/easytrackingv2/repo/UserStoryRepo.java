@@ -8,4 +8,6 @@ import java.util.List;
 public interface UserStoryRepo extends JpaRepository<UserStoryEntity, Long> {
 
     List<UserStoryEntity> findAllByProjectId(Long projectId);
+
+    Long countByUserId(Long id);
 }
