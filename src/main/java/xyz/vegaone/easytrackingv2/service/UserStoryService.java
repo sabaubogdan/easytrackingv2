@@ -67,4 +67,8 @@ public class UserStoryService {
         return savedUserStory;
     }
 
+    public Long getUserStatisticsUserStories(Long id){
+        return userStoryRepo.countByUserId(id);
+    }
+
 }

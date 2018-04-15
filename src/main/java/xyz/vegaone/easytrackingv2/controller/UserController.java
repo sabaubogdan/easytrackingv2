@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import xyz.vegaone.easytrackingv2.dto.User;
+import xyz.vegaone.easytrackingv2.dto.UserStatistics;
 import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
 import xyz.vegaone.easytrackingv2.service.UserService;
 
@@ -49,6 +50,12 @@ public class UserController {
     @ResponseStatus(value = HttpStatus.OK)
     public List<User> findAllUsers() {
         return userService.findAllUsers();
+    }
+
+    @GetMapping(value = "/{id}/statistics")
+    @ResponseStatus(value = HttpStatus.OK)
+    public UserStatistics getAllStatistics(@PathVariable(value = "id") Long id){
+        return userService.getUserStatistics(id);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)

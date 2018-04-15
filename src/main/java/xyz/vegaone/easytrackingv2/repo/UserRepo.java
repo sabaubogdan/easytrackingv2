@@ -6,4 +6,5 @@ import xyz.vegaone.easytrackingv2.domain.UserEntity;
 
 @Repository
 public interface UserRepo extends JpaRepository<UserEntity, Long> {
+
 }
