@@ -48,6 +48,7 @@ public abstract class UserStoryMapper {
 
     @AfterMapping
     void addIgnoredFieldsToDto(UserStoryEntity userStoryEntity, @MappingTarget UserStory userStory) {
+        // project
         if (userStoryEntity.getProject() != null) {
             Project project = new Project();
             project.setId(userStoryEntity.getProject().getId());
@@ -56,31 +57,36 @@ public abstract class UserStoryMapper {
             userStory.setProject(project);
         }
 
+        // user
+        if (userStoryEntity.getUser() != null) {
+            User user = new User();
+            user.setId(userStoryEntity.getUser().getId());
+            user.setName(userStoryEntity.getUser().getName());
+            user.setEmail(userStoryEntity.getUser().getEmail());
+
+            userStory.setUser(user);
+        } else {
+            userStory.setUser(null);
+        }
+
+        // tasks
         if (!CollectionUtils.isEmpty(userStoryEntity.getTasks())) {
             userStory.setTasks(taskMapper.domainToDtoList(userStoryEntity.getTasks()));
         } else {
             userStory.setTasks(Collections.emptyList());
         }
 
+        // bugs
         if (!CollectionUtils.isEmpty(userStoryEntity.getBugs())) {
             userStory.setBugs(bugMapper.domainToDtoList(userStoryEntity.getBugs()));
         } else {
             userStory.setBugs(Collections.emptyList());
         }
-
-        if (userStoryEntity.getUser() != null) {
-            User user = new User();
-            user.setId(userStoryEntity.getUser().getId());
-            user.setName(userStoryEntity.getUser().getName());
-
-            userStory.setUser(user);
-        } else {
-            userStory.setUser(null);
-        }
     }
 
     @AfterMapping
     void addIgnoredFieldsToDomain(UserStory userStory, @MappingTarget UserStoryEntity userStoryEntity) {
+        // project
         if (userStory.getProject() != null) {
             ProjectEntity projectEntity = new ProjectEntity();
             projectEntity.setId(userStory.getProject().getId());
@@ -89,26 +95,30 @@ public abstract class UserStoryMapper {
             userStoryEntity.setProject(projectEntity);
         }
 
+        // user
+        if (userStory.getUser() != null) {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setId(userStory.getUser().getId());
+            userEntity.setName(userStory.getUser().getName());
+            userEntity.setEmail(userStory.getUser().getEmail());
+
+            userStoryEntity.setUser(userEntity);
+        } else {
+            userStoryEntity.setUser(null);
+        }
+
+        // tasks
         if (!CollectionUtils.isEmpty(userStory.getTasks())) {
             userStoryEntity.setTasks(taskMapper.dtoToDomain(userStory.getTasks()));
         } else {
             userStoryEntity.setTasks(Collections.emptyList());
         }
 
+        // bugs
         if (!CollectionUtils.isEmpty(userStory.getBugs())) {
             userStoryEntity.setBugs(bugMapper.dtoToDomainList(userStory.getBugs()));
         } else {
             userStoryEntity.setTasks(Collections.emptyList());
-        }
-
-        if (userStory.getUser() != null) {
-            UserEntity userEntity = new UserEntity();
-            userEntity.setId(userStory.getUser().getId());
-            userEntity.setName(userStory.getUser().getName());
-
-            userStoryEntity.setUser(userEntity);
-        } else {
-            userStoryEntity.setUser(null);
         }
     }
 }

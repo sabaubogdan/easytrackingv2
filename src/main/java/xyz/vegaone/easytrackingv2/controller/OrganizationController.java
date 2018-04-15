@@ -53,6 +53,13 @@ public class OrganizationController {
         return allOrganizations;
     }
 
+    @GetMapping(value = "/user/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<Organization> findAllOrganizationsByUserId(@PathVariable(value = "id") Long id) {
+
+        return organizationService.findAllOrganizationsByUserId(id);
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public String organizationNotFoundError(EntityNotFoundException entityNotFoundException) {

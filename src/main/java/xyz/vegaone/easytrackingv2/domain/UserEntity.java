@@ -18,7 +18,7 @@ public class UserEntity {
     private String email;
 
     @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER)
-    private List<ProjectEntity> projectEntityList;
+    private List<ProjectEntity> projectList;
 
     @OneToMany(mappedBy = "user")
     private List<UserStoryEntity> userStoryList;
@@ -57,12 +57,12 @@ public class UserEntity {
         this.email = email;
     }
 
-    public List<ProjectEntity> getProjectEntityList() {
-        return projectEntityList;
+    public List<ProjectEntity> getProjectList() {
+        return projectList;
     }
 
-    public void setProjectEntityList(List<ProjectEntity> projectEntityList) {
-        this.projectEntityList = projectEntityList;
+    public void setProjectList(List<ProjectEntity> projectList) {
+        this.projectList = projectList;
     }
 
     public List<UserStoryEntity> getUserStoryList() {

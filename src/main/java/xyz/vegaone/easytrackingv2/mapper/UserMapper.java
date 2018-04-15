@@ -28,19 +28,24 @@ public abstract class UserMapper {
     @Autowired
     private BugMapper bugMapper;
 
+    @Autowired
+    private ProjectMapper projectMapper;
+
     @Mappings({
-            @Mapping(target = "organization", ignore = true),
             @Mapping(target = "taskList", ignore = true),
             @Mapping(target = "bugList", ignore = true),
-            @Mapping(target = "userStoryList", ignore = true)
+            @Mapping(target = "userStoryList", ignore = true),
+            @Mapping(target = "projectList", ignore = true),
+            @Mapping(target = "organization", ignore = true)
     })
     public abstract User domainToDto(UserEntity entity);
 
     @Mappings({
-            @Mapping(target = "organization", ignore = true),
             @Mapping(target = "taskList", ignore = true),
             @Mapping(target = "bugList", ignore = true),
-            @Mapping(target = "userStoryList", ignore = true)
+            @Mapping(target = "userStoryList", ignore = true),
+            @Mapping(target = "projectList", ignore = true),
+            @Mapping(target = "organization", ignore = true)
     })
     public abstract UserEntity dtoToDomain(User user);
 
@@ -65,7 +70,13 @@ public abstract class UserMapper {
         if (!CollectionUtils.isEmpty(userEntity.getUserStoryList())) {
             user.setUserStoryList(userStoryMapper.domainToDtoList(userEntity.getUserStoryList()));
         } else {
-            user.setBugList(Collections.emptyList());
+            user.setUserStoryList(Collections.emptyList());
+        }
+
+        if (!CollectionUtils.isEmpty(userEntity.getProjectList())) {
+            user.setProjectList(projectMapper.domainToDtoList(userEntity.getProjectList()));
+        } else {
+            user.setProjectList(Collections.emptyList());
         }
 
         if (userEntity.getOrganization() != null) {
@@ -92,6 +103,13 @@ public abstract class UserMapper {
         } else {
             userEntity.setUserStoryList(Collections.emptyList());
         }
+
+        if (!CollectionUtils.isEmpty(user.getProjectList())) {
+            userEntity.setProjectList(projectMapper.dtoToDomainList(user.getProjectList()));
+        } else {
+            userEntity.setProjectList(Collections.emptyList());
+        }
+
         if (user.getOrganization() != null) {
             userEntity.setOrganization(organizationMapper.dtoToDomain(user.getOrganization()));
         }

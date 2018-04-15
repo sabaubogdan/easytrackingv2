@@ -4,19 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.vegaone.easytrackingv2.domain.OrganizationEntity;
-import xyz.vegaone.easytrackingv2.domain.ProjectEntity;
 import xyz.vegaone.easytrackingv2.domain.UserEntity;
 import xyz.vegaone.easytrackingv2.dto.Organization;
-import xyz.vegaone.easytrackingv2.dto.Project;
-import xyz.vegaone.easytrackingv2.dto.User;
 import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
 import xyz.vegaone.easytrackingv2.mapper.OrganizationMapper;
-import xyz.vegaone.easytrackingv2.mapper.ProjectMapper;
-import xyz.vegaone.easytrackingv2.mapper.UserMapper;
 import xyz.vegaone.easytrackingv2.repo.OrganizationRepo;
-import xyz.vegaone.easytrackingv2.repo.ProjectRepo;
-import xyz.vegaone.easytrackingv2.repo.UserRepo;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,25 +21,11 @@ public class OrganizationService {
 
     private OrganizationMapper organizationMapper;
 
-    private UserRepo userRepo;
-
-    private UserMapper userMapper;
-
-    private ProjectService projectService;
-
-    private ProjectRepo projectRepo;
-
-    private ProjectMapper projectMapper;
-
     @Autowired
-    public OrganizationService(OrganizationRepo organizationRepo, OrganizationMapper organizationMapper, UserRepo userRepo, UserMapper userMapper, ProjectService projectService, ProjectRepo projectRepo, ProjectMapper projectMapper) {
+    public OrganizationService(OrganizationRepo organizationRepo,
+                               OrganizationMapper organizationMapper) {
         this.organizationRepo = organizationRepo;
         this.organizationMapper = organizationMapper;
-        this.userRepo = userRepo;
-        this.userMapper = userMapper;
-        this.projectService = projectService;
-        this.projectRepo = projectRepo;
-        this.projectMapper = projectMapper;
     }
 
     public Organization createOrganization(Organization organization) {
@@ -62,22 +42,7 @@ public class OrganizationService {
         OrganizationEntity organizationEntity = organizationOptional.orElseThrow(() ->
                 new EntityNotFoundException("Organization with id " + id + " not found"));
 
-        Organization organization = organizationMapper.domainToDto(organizationEntity);
-
-        Optional<UserEntity> userOptional = userRepo.findById(organizationEntity.getId());
-        Optional<ProjectEntity> projectOptional = projectRepo.findById(organizationEntity.getId());
-
-        User user = null;
-        Project project = null;
-
-        if (userOptional.isPresent()) {
-            user = userMapper.domainToDto(userOptional.get());
-        }
-        if (projectOptional.isPresent()) {
-            project = projectMapper.domainToDto(projectOptional.get());
-        }
-
-        return organization;
+        return organizationMapper.domainToDto(organizationEntity);
     }
 
     public void deleteOrganization(Long id) {
@@ -90,9 +55,7 @@ public class OrganizationService {
 
         OrganizationEntity savedOrganizationEntity = organizationRepo.save(organizationEntity);
 
-        Organization savedOrganization = organizationMapper.domainToDto(savedOrganizationEntity);
-
-        return savedOrganization;
+        return organizationMapper.domainToDto(savedOrganizationEntity);
 
     }
 
@@ -103,5 +66,12 @@ public class OrganizationService {
         return organizationMapper.domainToDtoList(organizationEntityList);
     }
 
+    public List<Organization> findAllOrganizationsByUserId(Long userId) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(userId);
 
+        List<OrganizationEntity> organizationEntityList = organizationRepo.findAllByUserList(Collections.singletonList(userEntity));
+
+        return organizationMapper.domainToDtoList(organizationEntityList);
+    }
 }
