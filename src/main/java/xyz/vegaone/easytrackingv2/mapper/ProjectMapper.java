@@ -14,17 +14,14 @@ import xyz.vegaone.easytrackingv2.dto.Organization;
 import xyz.vegaone.easytrackingv2.dto.Project;
 import xyz.vegaone.easytrackingv2.dto.User;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "Spring")
 public abstract class ProjectMapper {
 
     @Autowired
     private UserStoryMapper userStoryMapper;
-
-    @Autowired
-    private UserMapper userMapper;
 
     @Mappings({
             @Mapping(target = "userList", ignore = true),
@@ -52,16 +49,12 @@ public abstract class ProjectMapper {
         }
 
         // user list
-        List<UserEntity> userEntityList = projectEntity.getUserList();
-        if (!CollectionUtils.isEmpty(userEntityList)) {
-            userEntityList.forEach(user -> {
-                user.setUserStoryList(Collections.emptyList());
-                user.setTaskList(Collections.emptyList());
-                user.setBugList(Collections.emptyList());
-                user.setUserStoryList(Collections.emptyList());
-            });
-            List<User> userList = userMapper.domainToDtoList(userEntityList);
-            project.setUserList(userList);
+        if (!CollectionUtils.isEmpty(projectEntity.getUserList())) {
+            project.setUserList(
+                    projectEntity.getUserList()
+                            .stream()
+                            .map(this::buildUserDto)
+                            .collect(Collectors.toList()));
         }
 
         // organization
@@ -73,6 +66,14 @@ public abstract class ProjectMapper {
         }
     }
 
+    private User buildUserDto(UserEntity userEntity) {
+        User user = new User();
+        user.setId(userEntity.getId());
+        user.setName(userEntity.getName());
+        user.setEmail(userEntity.getEmail());
+        return user;
+    }
+
     @AfterMapping
     void addIgnoredFieldsToDomain(Project project, @MappingTarget ProjectEntity projectEntity) {
         // user story
@@ -81,17 +82,12 @@ public abstract class ProjectMapper {
         }
 
         // user list
-        List<User> userList = project.getUserList();
-        if (!CollectionUtils.isEmpty(userList)) {
-            userList.forEach(user -> {
-                user.setUserStoryList(Collections.emptyList());
-                user.setTaskList(Collections.emptyList());
-                user.setBugList(Collections.emptyList());
-                user.setUserStoryList(Collections.emptyList());
-            });
-
-            List<UserEntity> userEntityList = userMapper.dtoToDomainList(userList);
-            projectEntity.setUserList(userEntityList);
+        if (!CollectionUtils.isEmpty(project.getUserList())) {
+            projectEntity.setUserList(
+                    project.getUserList()
+                            .stream()
+                            .map(this::buildUserDomain)
+                            .collect(Collectors.toList()));
         }
 
         // organization
@@ -101,6 +97,14 @@ public abstract class ProjectMapper {
             organizationEntity.setName(project.getOrganization().getName());
             projectEntity.setOrganization(organizationEntity);
         }
+    }
+
+    private UserEntity buildUserDomain(User user) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(user.getId());
+        userEntity.setName(user.getName());
+        userEntity.setEmail(user.getEmail());
+        return userEntity;
     }
 
 }

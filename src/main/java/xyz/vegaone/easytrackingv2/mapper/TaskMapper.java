@@ -48,6 +48,7 @@ public abstract class TaskMapper {
             User user = new User();
             user.setId(taskEntity.getUser().getId());
             user.setName(taskEntity.getUser().getName());
+            user.setEmail(taskEntity.getUser().getEmail());
 
             task.setUser(user);
         }
@@ -68,6 +69,7 @@ public abstract class TaskMapper {
             UserEntity userEntity = new UserEntity();
             userEntity.setId(task.getUser().getId());
             userEntity.setName(task.getUser().getName());
+            userEntity.setEmail(task.getUser().getEmail());
 
             taskEntity.setUser(userEntity);
         }

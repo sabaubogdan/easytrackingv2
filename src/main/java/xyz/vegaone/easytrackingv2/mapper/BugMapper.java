@@ -49,6 +49,7 @@ public abstract class BugMapper {
             User user = new User();
             user.setId(bugEntity.getUser().getId());
             user.setName(bugEntity.getUser().getName());
+            user.setEmail(bugEntity.getUser().getEmail());
 
             bug.setUser(user);
         }
@@ -69,6 +70,7 @@ public abstract class BugMapper {
             UserEntity userEntity = new UserEntity();
             userEntity.setId(bug.getUser().getId());
             userEntity.setName(bug.getUser().getName());
+            userEntity.setEmail(bug.getUser().getEmail());
 
             bugEntity.setUser(userEntity);
         }

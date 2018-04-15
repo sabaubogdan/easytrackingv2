@@ -57,6 +57,18 @@ public abstract class UserStoryMapper {
             userStory.setProject(project);
         }
 
+        // user
+        if (userStoryEntity.getUser() != null) {
+            User user = new User();
+            user.setId(userStoryEntity.getUser().getId());
+            user.setName(userStoryEntity.getUser().getName());
+            user.setEmail(userStoryEntity.getUser().getEmail());
+
+            userStory.setUser(user);
+        } else {
+            userStory.setUser(null);
+        }
+
         // tasks
         if (!CollectionUtils.isEmpty(userStoryEntity.getTasks())) {
             userStory.setTasks(taskMapper.domainToDtoList(userStoryEntity.getTasks()));
@@ -69,17 +81,6 @@ public abstract class UserStoryMapper {
             userStory.setBugs(bugMapper.domainToDtoList(userStoryEntity.getBugs()));
         } else {
             userStory.setBugs(Collections.emptyList());
-        }
-
-        // user
-        if (userStoryEntity.getUser() != null) {
-            User user = new User();
-            user.setId(userStoryEntity.getUser().getId());
-            user.setName(userStoryEntity.getUser().getName());
-
-            userStory.setUser(user);
-        } else {
-            userStory.setUser(null);
         }
     }
 
@@ -94,6 +95,18 @@ public abstract class UserStoryMapper {
             userStoryEntity.setProject(projectEntity);
         }
 
+        // user
+        if (userStory.getUser() != null) {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setId(userStory.getUser().getId());
+            userEntity.setName(userStory.getUser().getName());
+            userEntity.setEmail(userStory.getUser().getEmail());
+
+            userStoryEntity.setUser(userEntity);
+        } else {
+            userStoryEntity.setUser(null);
+        }
+
         // tasks
         if (!CollectionUtils.isEmpty(userStory.getTasks())) {
             userStoryEntity.setTasks(taskMapper.dtoToDomain(userStory.getTasks()));
@@ -106,17 +119,6 @@ public abstract class UserStoryMapper {
             userStoryEntity.setBugs(bugMapper.dtoToDomainList(userStory.getBugs()));
         } else {
             userStoryEntity.setTasks(Collections.emptyList());
-        }
-
-        // user
-        if (userStory.getUser() != null) {
-            UserEntity userEntity = new UserEntity();
-            userEntity.setId(userStory.getUser().getId());
-            userEntity.setName(userStory.getUser().getName());
-
-            userStoryEntity.setUser(userEntity);
-        } else {
-            userStoryEntity.setUser(null);
         }
     }
 }

@@ -56,4 +56,12 @@ public class SprintEntity {
     public void setSprintNumber(Long sprintNumber) {
         this.sprintNumber = sprintNumber;
     }
+
+    public ProjectEntity getProject() {
+        return project;
+    }
+
+    public void setProject(ProjectEntity project) {
+        this.project = project;
+    }
 }
