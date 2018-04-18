@@ -1,6 +1,7 @@
 package xyz.vegaone.easytrackingv2.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class Project {
     @JsonManagedReference(value = "project-sprint")
     private List<Sprint> sprintList;
 
-    @JsonManagedReference(value = "project-userstory")
+    @JsonIgnore
     private List<UserStory> userStoryList;
 
     @JsonBackReference(value = "organization-project")

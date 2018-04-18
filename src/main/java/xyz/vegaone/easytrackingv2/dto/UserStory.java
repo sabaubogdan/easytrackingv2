@@ -1,6 +1,5 @@
 package xyz.vegaone.easytrackingv2.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.List;
@@ -19,7 +18,6 @@ public class UserStory {
 
     private Long estimation;
 
-    @JsonBackReference(value = "project-userstory")
     private Project project;
 
     private User user;
