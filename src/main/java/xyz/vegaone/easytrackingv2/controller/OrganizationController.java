@@ -23,8 +23,9 @@ public class OrganizationController {
     }
 
     @GetMapping(value = "/{id}")
-    public Organization getOrganization(@PathVariable(value = "id") Long id) {
-        return organizationService.getOrganization(id);
+    public Organization getOrganization(@PathVariable(value = "id") Long id,
+                                        @RequestParam("brief") boolean brief) {
+        return organizationService.getOrganization(id, brief);
     }
 
     @PostMapping
@@ -47,17 +48,18 @@ public class OrganizationController {
 
     @GetMapping(value = "/all")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Organization> findAllOrganizationsBrief() {
-        List<Organization> allOrganizations = organizationService.findAllOrganizationsBrief();
+    public List<Organization> findAllOrganizationsBrief(@RequestParam("brief") boolean brief) {
+        List<Organization> allOrganizations = organizationService.findAllOrganizationsBrief(brief);
 
         return allOrganizations;
     }
 
     @GetMapping(value = "/user/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Organization> findAllOrganizationsByUserId(@PathVariable(value = "id") Long id) {
+    public List<Organization> findAllOrganizationsByUserId(@PathVariable(value = "id") Long id,
+                                                           @RequestParam("brief") boolean brief) {
 
-        return organizationService.findAllOrganizationsByUserId(id);
+        return organizationService.findAllOrganizationsByUserId(id, brief);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)

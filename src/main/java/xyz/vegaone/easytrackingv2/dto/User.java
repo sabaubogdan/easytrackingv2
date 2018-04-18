@@ -1,5 +1,9 @@
 package xyz.vegaone.easytrackingv2.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.List;
 
 public class User {
@@ -12,12 +16,16 @@ public class User {
 
     private List<Project> projectList;
 
+    @JsonManagedReference(value = "user-userstory")
     private List<UserStory> userStoryList;
 
+    @JsonManagedReference(value = "user-task")
     private List<Task> taskList;
 
+    @JsonManagedReference(value = "user-bug")
     private List<Bug> bugList;
 
+    @JsonBackReference(value = "organization-user")
     private Organization organization;
 
     public Long getId() {
@@ -76,6 +84,7 @@ public class User {
         this.organization = organization;
     }
 
+    @JsonIgnoreProperties(value = "userList", allowSetters = true)
     public List<Project> getProjectList() {
         return projectList;
     }

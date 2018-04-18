@@ -221,6 +221,13 @@
                                  referencedColumnNames="id"
                                  referencedTableName="organization"/>
     </changeSet>
+    <changeSet id="25" author="Bogdan">
+        <addForeignKeyConstraint baseColumnNames="project_id"
+                                 baseTableName="user_story"
+                                 constraintName="fk_project_id_userstory"
+                                 referencedColumnNames="id"
+                                 referencedTableName="project"/>
+    </changeSet>
 
 
 </databaseChangeLog>

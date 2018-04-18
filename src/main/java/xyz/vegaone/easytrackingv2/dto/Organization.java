@@ -1,5 +1,7 @@
 package xyz.vegaone.easytrackingv2.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.List;
 
 public class Organization {
@@ -8,8 +10,10 @@ public class Organization {
 
     private String name;
 
+    @JsonManagedReference(value = "organization-user")
     private List<User> userList;
 
+    @JsonManagedReference(value = "organization-project")
     private List<Project> projectList;
 
     public Long getId() {

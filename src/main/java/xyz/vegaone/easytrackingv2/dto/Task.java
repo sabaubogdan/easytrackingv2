@@ -1,5 +1,7 @@
 package xyz.vegaone.easytrackingv2.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 public class Task {
 
     private Long id;
@@ -14,8 +16,10 @@ public class Task {
 
     private Long estimation;
 
+    @JsonBackReference(value = "userstory-task")
     private UserStory userStory;
 
+    @JsonBackReference(value = "user-task")
     private User user;
 
     public Long getId() {

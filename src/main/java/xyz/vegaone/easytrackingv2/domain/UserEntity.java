@@ -17,7 +17,7 @@ public class UserEntity {
     @Column(name = "email")
     private String email;
 
-    @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "userList")
     private List<ProjectEntity> projectList;
 
     @OneToMany(mappedBy = "user")

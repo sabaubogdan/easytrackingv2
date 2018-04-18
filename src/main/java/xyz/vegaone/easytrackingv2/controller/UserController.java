@@ -52,6 +52,11 @@ public class UserController {
         return userService.findAllUsers();
     }
 
+    @GetMapping(value = "/organization/{id}")
+    public List<User> getAllUsersByOrganizationId(@PathVariable(value = "id") Long organizationId) {
+        return userService.getUserAllUsersbyOrganizationId(organizationId);
+    }
+
     @GetMapping(value = "/{id}/statistics")
     @ResponseStatus(value = HttpStatus.OK)
     public UserStatistics getAllStatistics(@PathVariable(value = "id") Long id){

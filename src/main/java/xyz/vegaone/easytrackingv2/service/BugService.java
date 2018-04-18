@@ -1,13 +1,12 @@
 package xyz.vegaone.easytrackingv2.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import xyz.vegaone.easytrackingv2.domain.BugEntity;
 import xyz.vegaone.easytrackingv2.dto.Bug;
 import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
-import xyz.vegaone.easytrackingv2.mapper.BugMapper;
 import xyz.vegaone.easytrackingv2.repo.BugRepo;
 
 import java.util.Optional;
@@ -18,19 +17,20 @@ public class BugService {
     
     private BugRepo bugRepo;
 
-    private BugMapper bugMapper;
+    private Mapper mapper;
 
     @Autowired
-    public BugService(BugRepo bugRepo, BugMapper bugMapper) {
+    public BugService(BugRepo bugRepo,
+                      Mapper mapper) {
         this.bugRepo = bugRepo;
-        this.bugMapper = bugMapper;
+        this.mapper = mapper;
     }
 
     public Bug createBug(Bug bug){
-        BugEntity bugEntity = bugMapper.dtoToDomain(bug);
+        BugEntity bugEntity = mapper.map(bug, BugEntity.class);
         BugEntity savedBugEntity = bugRepo.save(bugEntity);
 
-        return bugMapper.domainToDto(savedBugEntity);
+        return mapper.map(savedBugEntity, Bug.class);
     }
 
     public Bug getBug(Long id){
@@ -38,21 +38,18 @@ public class BugService {
 
         BugEntity bugEntity = bugEntityOptional.orElseThrow(()->
                             new EntityNotFoundException("Bug with id: " + id + " not found"));
-        Bug bug = bugMapper.domainToDto(bugEntity);
 
-        return bug;
+        return mapper.map(bugEntity, Bug.class);
     }
 
     public void deleteBug(Long id){bugRepo.deleteById(id);}
 
     public Bug updateBug(Bug bug){
-        BugEntity bugEntity = bugMapper.dtoToDomain(bug);
+        BugEntity bugEntity = mapper.map(bug, BugEntity.class);
 
         BugEntity savedBugEntity = bugRepo.save(bugEntity);
 
-        Bug savedBug = bugMapper.domainToDto(savedBugEntity);
-
-        return savedBug;
+        return mapper.map(savedBugEntity, Bug.class);
     }
 
     public Long getUserStatisticsBug(Long id){

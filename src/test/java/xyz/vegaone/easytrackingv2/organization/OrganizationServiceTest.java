@@ -26,7 +26,7 @@ public class OrganizationServiceTest {
         Organization savedOrganization = buildAndSaveOrganization();
 
         //then
-        Organization findOrganization = organizationService.getOrganization(savedOrganization.getId());
+        Organization findOrganization = organizationService.getOrganization(savedOrganization.getId(), true);
         Assert.assertNotNull("There should have been one organization saved in the database", findOrganization);
         Assert.assertEquals("The organization name should have matched", ORGANIZATION_NAME, findOrganization.getName());
     }
@@ -37,7 +37,7 @@ public class OrganizationServiceTest {
         Organization savedOrganization = buildAndSaveOrganization();
 
         //when
-        Organization findOrganization = organizationService.getOrganization(savedOrganization.getId());
+        Organization findOrganization = organizationService.getOrganization(savedOrganization.getId(), true);
 
         //then
         Assert.assertNotNull("There should have been one organization saved in the database", findOrganization);
@@ -53,7 +53,7 @@ public class OrganizationServiceTest {
         organizationService.deleteOrganization(savedOrganization.getId());
 
         //then
-        Assert.assertNull("The organization should have been deleted", organizationService.getOrganization(savedOrganization.getId()));
+        Assert.assertNull("The organization should have been deleted", organizationService.getOrganization(savedOrganization.getId(), true));
 
     }
 
@@ -81,7 +81,7 @@ public class OrganizationServiceTest {
 
         //when
         long nonexistentOrganizationId = -1;
-        organizationService.getOrganization(nonexistentOrganizationId);
+        organizationService.getOrganization(nonexistentOrganizationId, true);
     }
 
 

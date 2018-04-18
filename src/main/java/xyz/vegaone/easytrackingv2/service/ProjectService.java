@@ -1,16 +1,19 @@
 package xyz.vegaone.easytrackingv2.service;
 
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import xyz.vegaone.easytrackingv2.domain.OrganizationEntity;
 import xyz.vegaone.easytrackingv2.domain.ProjectEntity;
 import xyz.vegaone.easytrackingv2.domain.UserEntity;
 import xyz.vegaone.easytrackingv2.dto.Project;
 import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
-import xyz.vegaone.easytrackingv2.mapper.ProjectMapper;
 import xyz.vegaone.easytrackingv2.repo.ProjectRepo;
+import xyz.vegaone.easytrackingv2.util.MapperUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -20,19 +23,22 @@ public class ProjectService {
 
     private ProjectRepo projectRepo;
 
-    private ProjectMapper projectMapper;
+    private Mapper mapper;
+
+    private MapperUtil mapperUtil;
 
     @Autowired
-    public ProjectService(ProjectRepo projectRepo, ProjectMapper projectMapper) {
+    public ProjectService(ProjectRepo projectRepo, Mapper mapper, MapperUtil mapperUtil) {
         this.projectRepo = projectRepo;
-        this.projectMapper = projectMapper;
+        this.mapper = mapper;
+        this.mapperUtil = mapperUtil;
     }
 
     public Project createProject(Project project) {
-        ProjectEntity projectEntity = projectMapper.dtoToDomain(project);
+        ProjectEntity projectEntity = mapper.map(project, ProjectEntity.class);
         ProjectEntity savedProjectEntity = projectRepo.save(projectEntity);
 
-        return projectMapper.domainToDto(savedProjectEntity);
+        return mapper.map(savedProjectEntity, Project.class);
 
     }
 
@@ -43,7 +49,7 @@ public class ProjectService {
         ProjectEntity projectEntity = projectOptional.orElseThrow(() ->
                 new EntityNotFoundException("Project with id " + id + " not found"));
 
-        return projectMapper.domainToDto(projectEntity);
+        return mapper.map(projectEntity, Project.class);
 
     }
 
@@ -55,39 +61,49 @@ public class ProjectService {
 
     public Project updateProject(Project project) {
 
-        ProjectEntity projectEntity = projectMapper.dtoToDomain(project);
+        ProjectEntity projectEntity = mapper.map(project, ProjectEntity.class);
 
         ProjectEntity savedProjectEntity = projectRepo.save(projectEntity);
 
-        return projectMapper.domainToDto(savedProjectEntity);
+        return mapper.map(savedProjectEntity, Project.class);
     }
 
     public List<Project> findAllProjects(Boolean brief) {
 
+        List<ProjectEntity> projectEntityList = new ArrayList<>();
+
         if (brief) {
-
-            List<ProjectEntity> projectEntityList = projectRepo.findAllProjectsBrief();
-
-            return projectMapper.domainToDtoList(projectEntityList);
-
+            projectEntityList = projectRepo.findAllProjectsBrief();
         } else {
-            List<ProjectEntity> projectEntityList = projectRepo.findAll();
-
-            return projectMapper.domainToDtoList(projectEntityList);
+            projectEntityList = projectRepo.findAll();
         }
+
+        return mapperUtil.mapList(projectEntityList, Project.class);
     }
 
-    @Transactional
     public List<Project> findAllProjectsByUserId(Long userId) {
         UserEntity user = new UserEntity();
         user.setId(userId);
 
-        List<ProjectEntity> projectEntityList = projectRepo.findAllByUserList(Arrays.asList(user));
+        List<ProjectEntity> projectEntityList = projectRepo.findAllByUserListIsContaining(user);
 
         if (CollectionUtils.isEmpty(projectEntityList)) {
             throw new EntityNotFoundException("No projects found for user id: " + userId);
         }
 
-        return projectMapper.domainToDtoList(projectEntityList);
+        return mapperUtil.mapList(projectEntityList, Project.class);
+    }
+
+    public List<Project> findAllProjectsByOrganizationId(Long organizationId) {
+        OrganizationEntity organizationEntity = new OrganizationEntity();
+        organizationEntity.setId(organizationId);
+
+        List<ProjectEntity> projectEntityList = projectRepo.findAllByOrganization(organizationEntity);
+
+        if (CollectionUtils.isEmpty(projectEntityList)) {
+            throw new EntityNotFoundException("No projects found for user id: " + organizationId);
+        }
+
+        return mapperUtil.mapList(projectEntityList, Project.class);
     }
 }

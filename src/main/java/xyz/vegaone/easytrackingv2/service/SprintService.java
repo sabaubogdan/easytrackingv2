@@ -1,11 +1,11 @@
 package xyz.vegaone.easytrackingv2.service;
 
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.vegaone.easytrackingv2.domain.SprintEntity;
 import xyz.vegaone.easytrackingv2.dto.Sprint;
 import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
-import xyz.vegaone.easytrackingv2.mapper.SprintMapper;
 import xyz.vegaone.easytrackingv2.repo.SprintRepo;
 
 import java.util.Optional;
@@ -15,33 +15,28 @@ public class SprintService {
 
     private SprintRepo sprintRepo;
 
-    private SprintMapper sprintMapper;
+    private Mapper mapper;
 
     @Autowired
-    public SprintService(SprintRepo sprintRepo, SprintMapper sprintMapper) {
+    public SprintService(SprintRepo sprintRepo, Mapper mapper) {
         this.sprintRepo = sprintRepo;
-        this.sprintMapper = sprintMapper;
+        this.mapper = mapper;
     }
 
     public Sprint createSprint(Sprint sprint) {
-        SprintEntity sprintEntity = sprintMapper.dtoToDomain(sprint);
+        SprintEntity sprintEntity = mapper.map(sprint, SprintEntity.class);
         SprintEntity savedSprintEntity = sprintRepo.save(sprintEntity);
 
-        return sprintMapper.domainToDto(savedSprintEntity);
+        return mapper.map(savedSprintEntity, Sprint.class);
     }
 
     public Sprint getSprint(Long id) {
 
         Optional<SprintEntity> sprintOptional = sprintRepo.findById(id);
 
-        if (sprintOptional.isPresent()) {
-            SprintEntity sprintEntity = sprintOptional.get();
-            Sprint sprint = sprintMapper.domainToDto(sprintEntity);
+        SprintEntity sprintEntity = sprintOptional.orElseThrow(() -> new EntityNotFoundException("Sprint with id " + id + " not found"));
 
-            return sprint;
-        } else {
-            throw new EntityNotFoundException("Sprint with id " + id + " not found");
-        }
+        return mapper.map(sprintEntity, Sprint.class);
     }
 
     public void deleteSprint(Long id) {
@@ -49,10 +44,9 @@ public class SprintService {
     }
 
     public Sprint updateSprint(Sprint sprint) {
-        SprintEntity sprintEntity = sprintMapper.dtoToDomain(sprint);
+        SprintEntity sprintEntity = mapper.map(sprint, SprintEntity.class);
         SprintEntity updatedSprintEntity = sprintRepo.save(sprintEntity);
-        Sprint savedSprint = sprintMapper.domainToDto(updatedSprintEntity);
 
-        return savedSprint;
+        return mapper.map(updatedSprintEntity, Sprint.class);
     }
 }

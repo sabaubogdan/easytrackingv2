@@ -53,9 +53,8 @@ public class ProjectController {
 
     @GetMapping(value = "/all")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Project> findAllProjects(@RequestParam("brief") boolean brief) {
-        List<Project> allProjects = projectService.findAllProjects(brief);
-        return allProjects;
+    public List<Project> findAllProjectsBrief(@RequestParam("brief") boolean brief) {
+        return projectService.findAllProjects(brief);
     }
 
     @GetMapping(value = "/user/{id}")
@@ -64,6 +63,11 @@ public class ProjectController {
         return projectService.findAllProjectsByUserId(userId);
     }
 
+    @GetMapping(value = "/organization/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<Project> findAllProjectsByOrganizationId(@PathVariable(value = "id") Long organizationId) {
+        return projectService.findAllProjectsByOrganizationId(organizationId);
+    }
 
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)

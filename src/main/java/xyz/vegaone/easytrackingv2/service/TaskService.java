@@ -1,12 +1,12 @@
 package xyz.vegaone.easytrackingv2.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.vegaone.easytrackingv2.domain.TaskEntity;
 import xyz.vegaone.easytrackingv2.dto.Task;
 import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
-import xyz.vegaone.easytrackingv2.mapper.TaskMapper;
 import xyz.vegaone.easytrackingv2.repo.TaskRepo;
 
 import java.util.Optional;
@@ -15,21 +15,21 @@ import java.util.Optional;
 @Slf4j
 public class TaskService {
 
-    private TaskMapper taskMapper;
+    private Mapper mapper;
 
     private TaskRepo taskRepo;
 
     @Autowired
-    public TaskService(TaskMapper taskMapper, TaskRepo taskRepo) {
-        this.taskMapper = taskMapper;
+    public TaskService(Mapper mapper, TaskRepo taskRepo) {
+        this.mapper = mapper;
         this.taskRepo = taskRepo;
     }
 
     public Task createTask(Task task) {
-        TaskEntity taskEntity = taskMapper.dtoToDomain(task);
+        TaskEntity taskEntity = mapper.map(task, TaskEntity.class);
         TaskEntity savedTaskEntity = taskRepo.save(taskEntity);
 
-        return taskMapper.domainToDto(savedTaskEntity);
+        return mapper.map(savedTaskEntity, Task.class);
     }
 
     public Task getTask(Long id) {
@@ -37,9 +37,8 @@ public class TaskService {
 
         TaskEntity taskEntity = taskEntityOptional.orElseThrow(() ->
                 new EntityNotFoundException("Task with id + " + id + " not found"));
-        Task task = taskMapper.domainToDto(taskEntity);
 
-        return task;
+        return mapper.map(taskEntity, Task.class);
     }
 
     public void deleteTask(Long id) {
@@ -47,13 +46,11 @@ public class TaskService {
     }
 
     public Task updateTask(Task task) {
-        TaskEntity taskEntity = taskMapper.dtoToDomain(task);
+        TaskEntity taskEntity = mapper.map(task, TaskEntity.class);
 
         TaskEntity savedTaskEntity = taskRepo.save(taskEntity);
 
-        Task savedTask = taskMapper.domainToDto(savedTaskEntity);
-
-        return savedTask;
+        return mapper.map(savedTaskEntity, Task.class);
     }
 
     public Long getUserStatisticsTasks(Long id){

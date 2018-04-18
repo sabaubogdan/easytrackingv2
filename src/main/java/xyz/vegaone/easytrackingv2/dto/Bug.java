@@ -1,5 +1,7 @@
 package xyz.vegaone.easytrackingv2.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 public class Bug {
 
     private Long id;
@@ -16,8 +18,10 @@ public class Bug {
 
     private String severity;
 
+    @JsonBackReference(value = "userstory-bug")
     private UserStory userStory;
 
+    @JsonBackReference(value = "user-bug")
     private User user;
 
     public Long getId() {
