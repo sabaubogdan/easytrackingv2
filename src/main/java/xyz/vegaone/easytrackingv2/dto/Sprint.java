@@ -1,7 +1,5 @@
 package xyz.vegaone.easytrackingv2.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import java.util.Date;
 
 public class Sprint {
@@ -14,7 +12,6 @@ public class Sprint {
 
     private Long sprintNumber;
 
-    @JsonBackReference(value = "project-sprint")
     private Project project;
 
     public Long getId() {

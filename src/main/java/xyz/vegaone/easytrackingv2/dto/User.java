@@ -1,10 +1,11 @@
 package xyz.vegaone.easytrackingv2.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
 
     private Long id;
@@ -25,7 +26,6 @@ public class User {
     @JsonIgnore
     private List<Bug> bugList;
 
-    @JsonBackReference(value = "organization-user")
     private Organization organization;
 
     public Long getId() {
