@@ -22,7 +22,6 @@ public class UserStory {
     @JsonBackReference(value = "project-userstory")
     private Project project;
 
-    @JsonBackReference(value = "user-userstory")
     private User user;
 
     @JsonManagedReference(value = "userstory-task")
