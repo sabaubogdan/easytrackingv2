@@ -35,7 +35,7 @@ public class UserStoryEntity {
     private UserEntity user;
 
     @ManyToOne
-    @JoinColumn(name = "sprint")
+    @JoinColumn(name = "sprint_id")
     private SprintEntity sprint;
 
     @OneToMany(mappedBy = "userStory")
