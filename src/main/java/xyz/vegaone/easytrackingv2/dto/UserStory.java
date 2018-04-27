@@ -1,5 +1,6 @@
 package xyz.vegaone.easytrackingv2.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -21,6 +22,9 @@ public class UserStory {
     private Long estimation;
 
     private Project project;
+
+    @JsonBackReference(value = "userstory-sprint")
+    private Sprint sprint;
 
     private User user;
 
@@ -108,5 +112,13 @@ public class UserStory {
 
     public void setBugs(List<Bug> bugs) {
         this.bugs = bugs;
+    }
+
+    public Sprint getSprint() {
+        return sprint;
+    }
+
+    public void setSprint(Sprint sprint) {
+        this.sprint = sprint;
     }
 }

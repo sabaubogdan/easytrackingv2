@@ -2,6 +2,7 @@ package xyz.vegaone.easytrackingv2.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -24,6 +25,9 @@ public class SprintEntity {
     @ManyToOne
     @JoinColumn(name = "project_id")
     private ProjectEntity project;
+
+    @OneToMany(mappedBy = "sprint")
+    private List<UserStoryEntity> userStoryList;
 
     public Long getId() {
         return id;
@@ -63,5 +67,13 @@ public class SprintEntity {
 
     public void setProject(ProjectEntity project) {
         this.project = project;
+    }
+
+    public List<UserStoryEntity> getUserStoryList() {
+        return userStoryList;
+    }
+
+    public void setUserStoryList(List<UserStoryEntity> userStoryList) {
+        this.userStoryList = userStoryList;
     }
 }

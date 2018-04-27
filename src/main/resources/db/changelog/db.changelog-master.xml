@@ -228,6 +228,18 @@
                                  referencedColumnNames="id"
                                  referencedTableName="project"/>
     </changeSet>
+    <changeSet id="26" author="Dragos" >
+        <addColumn tableName="user_story">
+            <column name="sprint_id" type="int"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="27" author="Dragos">
+        <addForeignKeyConstraint baseColumnNames="sprint_id"
+                                 baseTableName="user_story"
+                                 constraintName="fk_sprint_id_userstory"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sprint"/>
+    </changeSet>
 
 
 </databaseChangeLog>
