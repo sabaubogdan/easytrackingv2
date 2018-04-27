@@ -1,6 +1,5 @@
 package xyz.vegaone.easytrackingv2.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -23,7 +22,6 @@ public class UserStory {
 
     private Project project;
 
-    @JsonBackReference(value = "userstory-sprint")
     private Sprint sprint;
 
     private User user;

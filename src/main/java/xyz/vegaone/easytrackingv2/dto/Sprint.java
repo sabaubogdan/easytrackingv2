@@ -1,6 +1,6 @@
 package xyz.vegaone.easytrackingv2.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 import java.util.List;
@@ -17,7 +17,7 @@ public class Sprint {
 
     private Project project;
 
-    @JsonManagedReference(value = "userstory-sprint")
+    @JsonIgnore
     private List<UserStory> userStoryList;
 
     public Long getId() {
