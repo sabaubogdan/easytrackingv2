@@ -34,6 +34,10 @@ public class UserStoryEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    @ManyToOne
+    @JoinColumn(name = "sprint_id")
+    private SprintEntity sprint;
+
     @OneToMany(mappedBy = "userStory")
     private List<TaskEntity> tasks;
 
@@ -118,5 +122,13 @@ public class UserStoryEntity {
 
     public void setBugs(List<BugEntity> bugs) {
         this.bugs = bugs;
+    }
+
+    public SprintEntity getSprint() {
+        return sprint;
+    }
+
+    public void setSprint(SprintEntity sprint) {
+        this.sprint = sprint;
     }
 }

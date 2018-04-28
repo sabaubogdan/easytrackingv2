@@ -7,7 +7,9 @@ import xyz.vegaone.easytrackingv2.domain.SprintEntity;
 import xyz.vegaone.easytrackingv2.dto.Sprint;
 import xyz.vegaone.easytrackingv2.exception.EntityNotFoundException;
 import xyz.vegaone.easytrackingv2.repo.SprintRepo;
+import xyz.vegaone.easytrackingv2.util.MapperUtil;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,10 +19,15 @@ public class SprintService {
 
     private Mapper mapper;
 
+    private MapperUtil mapperUtil;
+
     @Autowired
-    public SprintService(SprintRepo sprintRepo, Mapper mapper) {
+    public SprintService(SprintRepo sprintRepo,
+                         Mapper mapper,
+                         MapperUtil mapperUtil) {
         this.sprintRepo = sprintRepo;
         this.mapper = mapper;
+        this.mapperUtil = mapperUtil;
     }
 
     public Sprint createSprint(Sprint sprint) {
@@ -28,6 +35,12 @@ public class SprintService {
         SprintEntity savedSprintEntity = sprintRepo.save(sprintEntity);
 
         return mapper.map(savedSprintEntity, Sprint.class);
+    }
+
+    public List<Sprint> getSprintByProjectid(Long projectId){
+        List<SprintEntity> sprintEntityList = sprintRepo.findAllByProjectId(projectId);
+
+        return mapperUtil.mapList(sprintEntityList, Sprint.class);
     }
 
     public Sprint getSprint(Long id) {

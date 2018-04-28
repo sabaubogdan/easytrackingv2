@@ -28,7 +28,7 @@ public class UserStoryController {
         return userStory;
     }
 
-    @GetMapping(value = "/projectid/{id}")
+    @GetMapping(value = "/project/{id}")
     public List<UserStory> getUserStoryByProjectId(@PathVariable(value = "id") Long projectId) {
         return userStoryService.getUserStoryByProjectId(projectId);
     }

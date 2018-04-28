@@ -22,6 +22,8 @@ public class UserStory {
 
     private Project project;
 
+    private Sprint sprint;
+
     private User user;
 
     @JsonManagedReference(value = "userstory-task")
@@ -108,5 +110,13 @@ public class UserStory {
 
     public void setBugs(List<Bug> bugs) {
         this.bugs = bugs;
+    }
+
+    public Sprint getSprint() {
+        return sprint;
+    }
+
+    public void setSprint(Sprint sprint) {
+        this.sprint = sprint;
     }
 }

@@ -1,6 +1,9 @@
 package xyz.vegaone.easytrackingv2.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
+import java.util.List;
 
 public class Sprint {
 
@@ -13,6 +16,9 @@ public class Sprint {
     private Long sprintNumber;
 
     private Project project;
+
+    @JsonIgnore
+    private List<UserStory> userStoryList;
 
     public Long getId() {
         return id;
@@ -52,5 +58,13 @@ public class Sprint {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public List<UserStory> getUserStoryList() {
+        return userStoryList;
+    }
+
+    public void setUserStoryList(List<UserStory> userStoryList) {
+        this.userStoryList = userStoryList;
     }
 }
